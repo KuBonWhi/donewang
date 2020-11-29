@@ -1,0 +1,49 @@
+<div id = "h0">
+</div>
+<div class="ui main text container" id = "h1">
+    <h1 class="ui header">판매등록</h1>
+<hr id = "slaeline"/>
+</div>
+
+<form  onsubmit="return false";>
+<p>
+    <strong style = "font-size: 20px;">경매 기한</strong>
+    <input type="text"  placeholder="12" style = "text-align: right; height: 30px; margin-left:10px; font-size: 15px;" list="timer">시간
+    <datalist id = "timer">
+        <option value="12"></option>
+        <option value="24"></option>
+        <option value="36"></option>
+        <option value="48"></option>
+    </datalist>
+</p>
+<p>
+    <strong style = "font-size: 20px;">시작 가격</strong>
+    <input name = "start_price" type="text" placeholder="1000" style = "text-align: right; height: 30px; margin-top:10px; margin-left:10px; font-size: 15px;">
+    <h style="margin-left:10px;">원</h>
+</p>
+<p>
+    <strong style = "font-size: 20px; margin-left: 48px">후원</strong>
+    <input type="text" placeholder="2" style = "text-align: right; height: 30px; margin-top:10px; margin-left:10px; font-size: 15px;">
+    <h style="margin-left:10px;">%</h>
+</p>
+
+<p style = "margin-top: 30px;">
+    <input type="text" placeholder="<제목을 입력하세요.>" style = "text-align: center; height: 40px; width: 800px; font-size: 30px;" >
+    <input type="text" placeholder="종류" style = "width: 300px;text-align: center; margin-left: 86px; height: 40px; font-size: 30px;" list="what">
+    <datalist id = "what">
+        <option value="옷"></option>
+        <option value="악세사리"></option>
+        <option value="신발"></option>
+        <option value="전자제품"></option>
+        <option value="기타"></option>
+    </datalist>
+</p>
+<p style="margin-top: 20px;">
+    <textarea style="width: 1200px; height: 600px; font-size: 30px;"></textarea>
+</p>
+<p>
+    <input type="file" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
+    <button type = "submit" style="width: 300px; height: 50px; margin-top: 20px; margin-left: 641px; ">등록하기</button>
+</p>
+
+</form>
