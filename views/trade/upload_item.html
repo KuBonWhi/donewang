@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <title>Generic - Projection by TEMPLATED</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <!--		<link rel='stylesheet' href='/stylesheets/salepage.css' />-->
+</head>
+<body class="subpage">
+
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="home" class="logo"><strong>Projection</strong> by TEMPLATED</a>
+        <nav id="nav">
+            <a href="home">Home</a>
+            <a href="generic">Generic</a>
+            <a href="elements">Elements</a>
+        </nav>
+        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+    </div>
+</header>
+
+<!-- Three -->
+<div class="inner">
+    <!--			<section id="three" class="wrapper">-->
+    <div style = "margin-top : 30px; position : relative"></div>
+    <div class="ui main text container" style = "width : 1200px; height : 100px; margin : 0 auto; position : relative;">
+        <h1 class="ui header">판매등록</h1>
+        <hr id = "slaeline"/>
+    </div>
+    <form action="/generic" method="POST">
+        <p>
+            <strong style = "font-size: 20px;">경매 기한</strong>
+            <input type="text"  name = "expire_time" placeholder="12" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; " list="timer">시간
+            <datalist id = "timer">
+                <option value="12"></option>
+                <option value="24"></option>
+                <option value="36"></option>
+                <option value="48"></option>
+            </datalist>
+        </p>
+        <p>
+            <strong style = "font-size: 20px;">시작 가격</strong>
+            <input name = "start_price" type="text" placeholder="1000" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; ">
+            <h style="margin-left:10px;">원</h>
+        </p>
+        <p>
+            <strong style = "font-size: 20px; margin-left: 48px">후원</strong>
+            <input type="text" name = "done_percentage" placeholder="2" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; ">
+            <h style="margin-left:10px;">%</h>
+        </p>
+
+        <hr />
+
+        <div class="row uniform">
+            <div class="9u 12u$(small)">
+                <input type="text" name="title" id="title" value="" placeholder="<제목을 입력하세요.>" />
+            </div>
+            <div class="3u$ 12u$(small)">
+                <input type="text" name = "category" placeholder="종류" list="what">
+                <datalist id = "what">
+                    <option value="옷"></option>
+                    <option value="악세사리"></option>
+                    <option value="신발"></option>
+                    <option value="전자제품"></option>
+                    <option value="기타"></option>
+                </datalist>
+            </div>
+        </div>
+        <div class="field">
+            <!--						<label for="내용">Message</label>-->
+            <br>
+            <textarea name="message" id="내용" rows="6" placeholder="내용"></textarea>
+        </div>
+        <p>
+            <input type="file" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
+            <button type = "submit" >등록하기</button>
+        </p>
+
+    </form>
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="inner">
+
+        <h3>Get in touch</h3>
+
+        <form action="#" method="post">
+
+            <div class="field half first">
+                <label for="name">Name</label>
+                <input name="name" id="name" type="text" placeholder="Name">
+            </div>
+            <div class="field half">
+                <label for="email">Email</label>
+                <input name="email" id="email" type="email" placeholder="Email">
+            </div>
+            <div class="field">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
+            </div>
+            <ul class="actions">
+                <li><input value="Send Message" class="button alt" type="submit"></li>
+            </ul>
+        </form>
+
+        <div class="copyright">
+            &copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+        </div>
+
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/skel.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>

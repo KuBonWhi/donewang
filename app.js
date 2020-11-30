@@ -9,9 +9,11 @@ var usersRouter = require('./routes/users');
 var tradeRouter = require('./routes/trade');
 var noticeRouter = require('./routes/notice');
 
+
 var app = express();
 
 const {sequelize} = require('./models');
+//const bodyParser = require('body-parser');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,14 +26,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({extended:false}));
+
 //db연결
 sequelize.sync({ force: false })
-  .then(() => {
-    console.log('데이터베이스 연결 성공');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+    .then(() => {
+      console.log('데이터베이스 연결 성공');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
