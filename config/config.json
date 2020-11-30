@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "ehdgml",
-    "database": "test",
+    "password": "1234",
+    "database": "donewang",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
