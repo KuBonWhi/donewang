@@ -1,35 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
     <title>도 네 왕</title>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="/stylesheets/basic.css"/>
 </head>
-<body>
-<header id=header>
-    <h1>
-        <a href=index.jsp><img src="/img/title.png" width=300 height=50></a>
-    </h1>
+<body class="subpage">
+
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
+        <nav id="nav">
+            <a href="../trade/upload_item" role="tab">판매</a>
+            <a href="../trade/item_list">구매</a>
+            <a href="../trade/direct_done">바로 후원 </a>
+            <a href="../notice/notice">게시판</a>
+            <a href="../users/login">로그인</a>
+            <a href="../users/register">회원가입</a>
+        </nav>
+        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+    </div>
 </header>
-<nav id=header2>
-    <a href=login.jsp>로그인 | </a>
-    <a href=join.jsp> 회원가입 | </a>
-    <a href=qna.jsp> 고객센터</a>  &emsp;  &emsp;
-</nav>
 
-<nav id=index>
-    <a href=form.jsp>판매</a> &nbsp; &nbsp; &nbsp; <a href=member_list.jsp>구매</a>
-    &nbsp; &nbsp; &nbsp; <a href=money_donation.jsp>바로 후원 </a> &nbsp; &nbsp;
-    &nbsp; <a href=list.jsp>게시판</a>
-</nav>
+<div class="inner">
+    page
+</div>
 
-<!-- 코드 작성 부분 -->
-
-
-
+<!-- Footer -->
 <footer id = footer>
     DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
 </footer>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/skel.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
 </body>
 </html>

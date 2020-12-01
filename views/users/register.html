@@ -8,24 +8,22 @@
     <link rel="stylesheet" href="/stylesheets/basic.css"/>
 </head>
 <body class="subpage">
-<header id=he1>
-    <h1>
-        <a href=index.jsp><img src="/img/title.png" width=300 height=50></a>
-    </h1>
+
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
+        <nav id="nav">
+            <a href="../trade/upload_item" role="tab">판매</a>
+            <a href="../trade/item_list">구매</a>
+            <a href="../trade/direct_done">바로 후원 </a>
+            <a href="../notice/notice">게시판</a>
+            <a href="../users/login">로그인</a>
+            <a href="../users/register">회원가입</a>
+        </nav>
+        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+    </div>
 </header>
-<nav id=he2>
-    <a href=login.jsp>로그인 | </a>
-    <a href=join.jsp> 회원가입 | </a>
-    <a href=qna.jsp> 고객센터</a>  &emsp;  &emsp;
-</nav>
-
-<nav id=ind>
-    <a href=form.jsp>판매</a> &nbsp; &nbsp; &nbsp; <a href=member_list.jsp>구매</a>
-    &nbsp; &nbsp; &nbsp; <a href=money_donation.jsp>바로 후원 </a> &nbsp; &nbsp;
-    &nbsp; <a href=list.jsp>게시판</a>
-    <br>
-</nav>
-
 
 <!-- Main -->
 <section id="main" class="wrapper">
@@ -80,8 +78,8 @@
                     </div>
                     <div class="12u$">
                         <ul class="actions">
-                            <li><input type="submit" value="Send Message" /></li>
-                            <li><input type="reset" value="Reset" class="alt" /></li>
+                            <li><input type="submit" value="가입하기" /></li>
+                            <li><input type="reset" value="초기화" class="alt" /></li>
                         </ul>
                     </div>
                 </div>
@@ -160,13 +158,17 @@
     </div>
 
 </section>
-<footer id = fo1>
+
+<!-- Footer -->
+<footer id = footer>
     DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
 </footer>
+
 <!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/skel.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
 </body>
 </html>

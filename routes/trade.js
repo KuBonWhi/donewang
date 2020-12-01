@@ -40,4 +40,8 @@ router.post('/upload_item',async (req,res,next)=>{
     }
 });
 
+router.get('/direct_done', function(req, res, next) {
+    res.render('trade/direct_done.html');
+});
+
 module.exports = router;
