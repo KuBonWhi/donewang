@@ -56,6 +56,7 @@ router.post('/register',async (req,res,next)=>{
   try{
     let body = req.body;
 
+    console.log("ghkdwa");
     let inputPassword = body.user_pw;
     let salt = Math.round((new Date().valueOf() * Math.random())) + "";
     let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
@@ -73,7 +74,7 @@ router.post('/register',async (req,res,next)=>{
       amount_donate: body.user_amount
       //salt : salt
     });
-    res.redirect('/test');
+    res.redirect('/');
   }catch(err){
     console.log(err);
     next(err);
