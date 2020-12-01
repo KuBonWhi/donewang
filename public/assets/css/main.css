@@ -1974,11 +1974,11 @@
 		-webkit-appearance: none;
 		-ms-appearance: none;
 		appearance: none;
-		background: #8fc5ef;
+		background: #EAEAEA;
 		border-radius: 10px;
 		border: none;
-		border: solid 2px #8dcca9;
-		color: #fff;
+		border: solid 2px #EAEAEA;
+		color: #4C4C4C;
 		display: block;
 		outline: 0;
 		padding: 0 1em;
@@ -2001,8 +2001,8 @@
 		input[type="tel"]:focus,
 		select:focus,
 		textarea:focus {
-			border-color: #4bae77;
-			box-shadow: 0 0 0 1px #4bae77;
+			border-color: #5D5D5D;
+			box-shadow: 0 0 0 1px #5D5D5D;
 		}
 
 	.select-wrapper {
@@ -2066,7 +2066,7 @@
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: #9a9a9a;
+			color: #EAEAEA;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -2090,7 +2090,7 @@
 			input[type="radio"] + label:before {
 				background: rgba(144, 144, 144, 0.075);
 				border-radius: 0;
-				border: solid 1px #8dcca9;
+				border: solid 1px #9a9a9a;
 				content: '';
 				display: inline-block;
 				height: 1.65em;
@@ -2125,27 +2125,27 @@
 	}
 
 	::-webkit-input-placeholder {
-		color: #c4e5d3 !important;
+		color: #8C8C8C !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: #c4e5d3 !important;
+		color: #8C8C8C !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: #c4e5d3 !important;
+		color: #8C8C8C !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: #c4e5d3 !important;
+		color: #8C8C8C !important;
 		opacity: 1.0;
 	}
 
 	.formerize-placeholder {
-		color: #c4e5d3 !important;
+		color: #8C8C8C !important;
 		opacity: 1.0;
 	}
 
@@ -2170,7 +2170,7 @@
 		}
 
 		.box.person {
-			border: solid 1px #8dcca9;
+			border: solid 1px #8fc5ef;
 			padding: 3em 1.5em;
 		}
 
@@ -2451,7 +2451,7 @@
 
 	table {
 		margin: 0 0 2em 0;
-		width: 100%;
+		width: 40%;
 	}
 
 		table tbody tr {
@@ -2549,7 +2549,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: rgba(108, 192, 145, 0.15);
+			background-color: rgba(143, 197, 239, 0.3);
 		}
 
 		input[type="submit"]:active,
@@ -2557,7 +2557,7 @@
 		input[type="button"]:active,
 		button:active,
 		.button:active {
-			background-color: rgba(108, 192, 145, 0.15);
+			background-color: rgba(143, 197, 239, 0.3);
 		}
 
 		input[type="submit"].icon,
@@ -2617,7 +2617,7 @@
 			input[type="button"].alt:hover,
 			button.alt:hover,
 			.button.alt:hover {
-				background-color: #7ec89e;
+				background-color: #D4F4FA;
 			}
 
 			input[type="submit"].alt:active,
@@ -2625,7 +2625,7 @@
 			input[type="button"].alt:active,
 			button.alt:active,
 			.button.alt:active {
-				background-color: #7ec89e;
+				background-color: #D4F4FA;
 			}
 
 			input[type="submit"].alt.icon:before,
@@ -2650,7 +2650,7 @@
 			input[type="button"].special:hover,
 			button.special:hover,
 			.button.special:hover {
-				background-color: #7ec89e;
+				background-color: #D4F4FA;
 			}
 
 			input[type="submit"].special:active,
@@ -2658,7 +2658,7 @@
 			input[type="button"].special:active,
 			button.special:active,
 			.button.special:active {
-				background-color: #5ab884;
+				background-color: #D4F4FA;
 			}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
@@ -2670,7 +2670,7 @@
 		button:disabled,
 		.button.disabled,
 		.button:disabled {
-			background-color: #9a9a9a !important;
+			background-color: #EAEAEA !important;
 			box-shadow: inset 0 -0.15em 0 0 rgba(0, 0, 0, 0.15);
 			color: #fff !important;
 			cursor: default;
@@ -2857,7 +2857,7 @@
 		}
 
 		#navPanel a:not(.close) {
-			border-top: solid 1px #8dcca9;
+			border-top: solid 1px #8fc5ef;
 			color: #daefe3;
 			font-weight: 600;
 			display: block;
@@ -2917,9 +2917,9 @@
 
 	#banner {
 		padding: 8em 0 9em 0;
-		background-image: url(/public/images/banner.jpg);
+		background-image: url(../../images/ban.jpg);
 		background-size: cover;
-		background-position: bottom;
+		background-position: top;
 		background-attachment: fixed;
 		background-repeat: no-repeat;
 		text-align: center;
@@ -2940,7 +2940,7 @@
 			border-top: 2px solid rgba(255, 255, 255, 0.2);
 			position: relative;
 			z-index: 10005;
-			padding-top: 8em;
+			padding-top: 5em;
 		}
 
 		#banner h1 {
@@ -3110,7 +3110,7 @@
 /* Footer */
 
 	#footer {
-		padding: 6em 0;
+		padding: 2em 0;
 		background: #8fc5ef;
 		color: #fff;
 		text-align: center;
