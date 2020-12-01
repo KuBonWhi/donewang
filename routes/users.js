@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models');
+const crypto = require('crypto'); // 암호화에 필요한 API
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render("user/my_info.html");
+  res.render("users/my_info.html");
+});
+
+router.get('/login', function(req, res, next) {
+  res.render("users/login.html");
 });
 
 router.post('/login',async (req,res,next)=>{
@@ -21,7 +26,6 @@ router.post('/login',async (req,res,next)=>{
     // let inputPassword = body.password;
     // let salt = result.dataValues.salt;
     // let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
-
 
     if(result.password == body.pw)
     {
@@ -46,6 +50,34 @@ router.post('/login',async (req,res,next)=>{
 
 router.get('/register', function(req, res, next) {
   res.render("users/register.html");
+});
+
+router.post('/register',async (req,res,next)=>{
+  try{
+    let body = req.body;
+
+    let inputPassword = body.user_pw;
+    let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+    let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+    await model['member_info'].create({
+      // title : body.postTitle,
+      // author : body.author
+      id: body.user_id,
+      password: body.user_pw,
+      address: body.user_address,
+      rank: body.user_rank,
+      phone_num: body.user_phone_num,
+      interest_spon: body.user_interest_spon,
+      private_account: body.user_account,
+      amount_donate: body.user_amount
+      //salt : salt
+    });
+    res.redirect('/test');
+  }catch(err){
+    console.log(err);
+    next(err);
+  }
 });
 
 router.get('/find_id', function(req, res, next) {
