@@ -62,7 +62,6 @@ router.post('/register',async (req,res,next)=>{
   try{
     let body = req.body;
 
-
     let inputPassword = body.user_pw;
     let salt = Math.round((new Date().valueOf() * Math.random())) + "";
     let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
@@ -177,6 +176,15 @@ router.post('/find_passwd',async (req,res,next)=>{
 router.get('/my_info', function(req, res, next) {
   res.render("users/my_info.html");
 });
+
+router.get('/provision1', function(req, res, next) {
+  res.render("users/provision1.html");
+});
+
+router.get('/provision2', function(req, res, next) {
+  res.render("users/provision2.html");
+});
+
 
 router.get('/findAllUsers', async(req, res, next) =>{
   try{

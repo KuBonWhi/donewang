@@ -5,9 +5,18 @@
     <title>도 네 왕</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
+
+    <script>
+        function functionK() {
+            if (f2.auction_time.value === "") {
+                alert("경매 기한을 선택해주세요.");
+            } else if (f2.auction_type.value === "") {
+                alert("물품 종류를 선택해주세요.");
+            }
+        }
+    </script>
 </head>
 <body class="subpage">
-
 <!-- Header -->
 <header id="header">
     <div class="inner">
@@ -27,58 +36,66 @@
 <div class="inner">
     <div style = "margin-top : 30px; position : relative"></div>
     <div class="ui main text container" style = "width : 1200px; height : 100px; margin : 0 auto; position : relative;">
-        <h1 class="ui header">판매등록</h1>
+        <strong style = "font-size: 20px;">판매 등록</strong>
         <hr id = "slaeline"/>
     </div>
-    <form action="/generic" method="POST">
-        <p>
-            <strong style = "font-size: 20px;">경매 기한</strong>
-            <input type="text"  name = "expire_time" placeholder="12" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; " list="timer">시간
-            <datalist id = "timer">
-                <option value="12"></option>
-                <option value="24"></option>
-                <option value="36"></option>
-                <option value="48"></option>
-            </datalist>
-        </p>
-        <p>
-            <strong style = "font-size: 20px;">시작 가격</strong>
-            <input name = "start_price" type="text" placeholder="1000" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; ">
-            <h style="margin-left:10px;">원</h>
-        </p>
-        <p>
-            <strong style = "font-size: 20px; margin-left: 48px">후원</strong>
-            <input type="text" name = "done_percentage" placeholder="2" style = "text-align: right; height: 30px; font-size: 15px; width : 200px; ">
-            <h style="margin-left:10px;">%</h>
-        </p>
+    <form name=f2 action="/generic" method="POST">
+        <div class="row uniform">
+            <div class="3u 12u$(small)">
+                <div class="select-wrapper">
+                    <select name="auction_time" id="auction_time">
+                        <option value="">- 경매 기한 -</option>
+                        <option value="1">12 시간</option>
+                        <option value="2">24 시간</option>
+                        <option value="3">36 시간</option>
+                        <option value="4">48 시간</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row uniform">
+            <div class="3u 12u$(small)">
+                <input name = "start_price" type="text" placeholder="시작 가격 (원)">
+
+            </div>
+        </div>
+        <div class="row uniform">
+            <div class="3u 12u$(small)">
+                <input type="text" name = "done_percentage" placeholder="후원 비율 (%)" >
+
+            </div>
+        </div>
 
         <hr />
 
         <div class="row uniform">
             <div class="9u 12u$(small)">
-                <input type="text" name="title" id="title" value="" placeholder="<제목을 입력하세요.>" />
+                <input type="text" name="title" id="title" value="" placeholder="<제목을 입력하세요>" />
             </div>
             <div class="3u$ 12u$(small)">
-                <input type="text" name = "category" placeholder="종류" list="what">
-                <datalist id = "what">
-                    <option value="옷"></option>
-                    <option value="악세사리"></option>
-                    <option value="신발"></option>
-                    <option value="전자제품"></option>
-                    <option value="기타"></option>
-                </datalist>
+                <div class="select-wrapper">
+                    <select name="auction_type" id="auction_type">
+                        <option value="">- 물품 종류 -</option>
+                        <option value="1">옷</option>
+                        <option value="2">악세사리</option>
+                        <option value="3">신발</option>
+                        <option value="4">전자제품</option>
+                        <option value="5">기타</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="field">
-            <!--                  <label for="내용">Message</label>-->
             <br>
             <textarea name="message" id="내용" rows="6" placeholder="내용"></textarea>
         </div>
-        <p>
-            <input type="file" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
-            <button type = "submit" >등록하기</button>
-        </p>
 
+        <input type="file" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
+        <br><br>
+        <ul class="actions">
+            <li><input type="submit" value="등록 하기" /></li>
+            <li><input type="reset" value="Reset" class="alt" /></li>
+        </ul>
     </form>
 </div>
 

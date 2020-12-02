@@ -5,6 +5,40 @@
     <title>도 네 왕</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
+
+    <script>
+        function functionK() {
+            if(f1.interest_spon.value === "")
+            {
+                alert("후원 대상을 선택해주세요.");
+            }
+
+            else if(f1.bank_category.value === "")
+            {
+                alert("은행을 선택해주세요.");
+            }
+
+            if(f1.bank_category.value === "1")
+            {
+                alert("우리은행 1002-123-456789(예금주:도네왕) \n입금해주세요.");
+            }
+
+            if(f1.bank_category.value === "2")
+            {
+                alert("국민은행 218-210-123456(예금주:도네왕) \n입금해주세요.");
+            }
+
+            if(f1.bank_category.value === "3")
+            {
+                alert("신한은행 110-515-456123(예금주:도네왕) \n입금해주세요.");
+            }
+
+            if(f1.bank_category.value === "4")
+            {
+                alert("농협은행 351-0142-789456(예금주:도네왕) \n입금해주세요.");
+            }
+        }
+    </script>
 </head>
 <body class="subpage">
 
@@ -25,9 +59,54 @@
 </header>
 
 <div class="inner">
-    page
+    <br>
+    <strong style = "font-size: 20px;"> 바로 후원하기 </strong> <hr>
+    <form name=f1 method="post" action="direct_done_proc.html" onSubmit="return functionK();">
+        <div class="row uniform">
+            <div class="6u 12u$(xsmall)">
+                <div class="row uniform">
+                    <div class="6u 12u$(xsmall)">
+                        <input type="text" name="dobe_name" id="done_name" value="" placeholder="기부자명" />
+                    </div>
+                    <div class="6u$ 12u$(xsmall)">
+                        <input type="text" name="done_account" id="done_account" value="" placeholder="금액" />
+                    </div>
+                    <!-- Break -->
+                    <div class="12u$">
+                        <div class="select-wrapper">
+                            <select name="interest_spon" id="interest_spon">
+                                <option value="">- 후원 대상 -</option>
+                                <option value="1">암</option>
+                                <option value="2">어린이</option>
+                                <option value="3">노인</option>
+                                <option value="4">기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="12u$">
+                        <div class="select-wrapper">
+                            <select name="bank_category" id="bank">
+                                <option value="">- 입금 은행 종류 -</option>
+                                <option value="1">우리</option>
+                                <option value="2">국민</option>
+                                <option value="3">신한</option>
+                                <option value="4">농협</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Break -->
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="후원 하기" /></li>
+                            <li><input type="reset" value="Reset" class="alt" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-
+<br><br><br><br>
 <!-- Footer -->
 <footer id = footer>
     DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
