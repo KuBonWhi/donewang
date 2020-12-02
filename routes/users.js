@@ -9,7 +9,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-  res.render("users/login.html");
+  let session = req.session;
+
+  res.render("users/login.html", {
+    session : session
+  });
 });
 
 router.post('/login',async (req,res,next)=>{
@@ -35,12 +39,13 @@ router.post('/login',async (req,res,next)=>{
     else if(result.password == body.pwd)
     {
       console.log("비밀번호 일치");
-      res.cookie("user", body.id , {
-        expires : new Date(Date.now() + 900000),
-        httpOnly : true
-      })
-      res.send("로그인 성공");
-      //res.redirect("/");
+      req.session.user = {
+        "id" : result.id,
+        "pw" : result.password
+      };
+      console.log(req.session.user);
+      //res.send("로그인 성공");
+      res.redirect("/");
     }
     else
     {
@@ -52,6 +57,20 @@ router.post('/login',async (req,res,next)=>{
     console.log(err);
     next(err);
   }
+});
+
+router.get('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.clearCookie('sid');
+
+  res.redirect("/");
+});
+
+router.post('/logout',async (req,res,next)=>{
+  req.session.destroy();
+  res.clearCookie('sid');
+
+  res.redirect("/")
 });
 
 router.get('/register', function(req, res, next) {
