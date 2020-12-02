@@ -5,11 +5,15 @@ const crypto = require('crypto'); // 암호화에 필요한 API
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render("users/my_info.html");
+  let session = req.session;
+
+  res.render("users/my_info.html" , { session : session});
 });
 
 router.get('/login', function(req, res, next) {
-  res.render("users/login.html");
+  let session = req.session;
+
+  res.render("users/login.html", { session : session });
 });
 
 router.post('/login',async (req,res,next)=>{
@@ -35,12 +39,13 @@ router.post('/login',async (req,res,next)=>{
     else if(result.password == body.pwd)
     {
       console.log("비밀번호 일치");
-      res.cookie("user", body.id , {
-        expires : new Date(Date.now() + 900000),
-        httpOnly : true
-      })
-      res.send("로그인 성공");
-      //res.redirect("/");
+      req.session.user = {
+        "id" : result.id,
+        "pw" : result.password
+      };
+      console.log(req.session.user);
+      //res.send("로그인 성공");
+      res.redirect("/");
     }
     else
     {
@@ -54,7 +59,23 @@ router.post('/login',async (req,res,next)=>{
   }
 });
 
+router.get('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.clearCookie('sid');
+
+  res.redirect("/");
+});
+
+router.post('/logout',async (req,res,next)=>{
+  req.session.destroy();
+  res.clearCookie('sid');
+
+  res.redirect("/")
+});
+
 router.get('/register', function(req, res, next) {
+  let session = req.session;
+
   res.render("users/register.html");
 });
 
@@ -89,7 +110,9 @@ router.post('/register',async (req,res,next)=>{
 });
 
 router.get('/find_id', function(req, res, next) {
-  res.render("users/find_id.html");
+  let session = req.session;
+
+  res.render("users/find_id.html", { session : session });
 });
 
 router.post('/find_id',async (req,res,next)=>{
@@ -131,7 +154,9 @@ router.post('/find_id',async (req,res,next)=>{
 });
 
 router.get('/find_passwd', function(req, res, next) {
-  res.render("users/find_passwd.html");
+  let session = req.session;
+
+  res.render("users/find_passwd.html", { session : session });
 });
 
 router.post('/find_passwd',async (req,res,next)=>{
@@ -174,15 +199,21 @@ router.post('/find_passwd',async (req,res,next)=>{
 });
 
 router.get('/my_info', function(req, res, next) {
-  res.render("users/my_info.html");
+  let session = req.session;
+
+  res.render("users/my_info.html", { session : session});
 });
 
 router.get('/provision1', function(req, res, next) {
-  res.render("users/provision1.html");
+  let session = req.session;
+
+  res.render("users/provision1.html", { session : session});
 });
 
 router.get('/provision2', function(req, res, next) {
-  res.render("users/provision2.html");
+  let session = req.session;
+
+  res.render("users/provision2.html", { session : session});
 });
 
 
