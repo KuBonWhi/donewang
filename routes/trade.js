@@ -1,6 +1,63 @@
 var express = require('express');
 var router = express.Router();
 
+//추가
+//사진 담기, 파일읽기, 경로설정
+var model = require('../models/index');
+var multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
+try {//폴더 읽기, 없으면 생성
+    fs.readdirSync('uploads');
+  } catch (error) {
+    console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
+    fs.mkdirSync('uploads');
+  }
+
+const upload = multer({
+    storage: multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, 'uploads');
+    },
+    filename(req, file, cb) {
+        const ext = path.extname(file.originalname);
+        cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+    }),
+    limits: { fileSize: 25 * 1024 * 1024 },
+});
+
+//이미지 미리보기
+router.post('/upload_item/img',upload.single('img'), (req, res) => {
+    console.log('upload/img!!!\n',req.file);
+    res.json({ url: `/img/${req.file.filename}` });
+});
+
+//판매 db등록
+const upload2 = multer();
+router.post('/upload_item', upload2.none(), async (req, res, next) => {
+  try {
+    let body = req.body;
+    console.log('!!!!!!!!!!!!!!!\n',body.url);
+    const post = await model['product_info'].create({
+      //product_id : 7, ==>자동증가됨
+      seller_id: 1,
+      product_describe: body.message,
+      start_price: body.start_price,
+      phone_num: '1234',
+      interest_spon: body.done_percentage,
+      product_picture: body.url,
+      duration: body.auction_time
+    });
+    res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
 router.get('/upload_item', function(req, res, next) {
     let session = req.session;
 
@@ -25,28 +82,28 @@ router.get('/upload_item', function(req, res, next) {
     res.render('trade/upload_item.html' , { session : session});
 });
 
-router.post('/upload_item',async (req,res,next)=>{
-    try{
-        let body = req.body;
+// router.post('/upload_item',async (req,res,next)=>{
+//     try{
+//         let body = req.body;
 
-        await model['product_info'].create({
-            // title : body.postTitle,
-            // author : body.author
-            product_id : 2,
-            seller_id: 0,
-            product_describe: body.message,
-            start_price: body.start_price,
-            phone_num: 0,
-            interest_spon: body.done_percentage,
-            product_picture: body.pic,
-            duration: body.expire_time
-        });
-        res.redirect('/trade/upload_item');
-    }catch(err){
-        console.log(err);
-        next(err);
-    }
-});
+//         await model['product_info'].create({
+//             // title : body.postTitle,
+//             // author : body.author
+//             product_id : 2,
+//             seller_id: 0,
+//             product_describe: body.message,
+//             start_price: body.start_price,
+//             phone_num: 0,
+//             interest_spon: body.done_percentage,
+//             product_picture: body.pic,
+//             duration: body.expire_time
+//         });
+//         res.redirect('/trade/upload_item');
+//     }catch(err){
+//         console.log(err);
+//         next(err);
+//     }
+// });
 
 router.get('/direct_done', function(req, res, next) {
     let session = req.session;
