@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     start_price: DataTypes.INTEGER,
     phone_num: DataTypes.STRING,
     interest_spon: DataTypes.INTEGER,
-    product_picture: DataTypes.BLOB,
+    product_picture: DataTypes.STRING,
     duration: DataTypes.INTEGER
   }, {
     sequelize,

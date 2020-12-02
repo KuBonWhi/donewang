@@ -5,6 +5,7 @@ module.exports = {
       product_id: {
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
       seller_id: {
@@ -23,7 +24,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       product_picture: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
       },
       duration: {
         type: Sequelize.INTEGER

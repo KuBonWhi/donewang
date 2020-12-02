@@ -46,7 +46,7 @@
         <strong style = "font-size: 20px;">판매 등록</strong>
         <hr id = "slaeline"/>
     </div>
-    <form name=f2 action="/generic" method="POST">
+    <form name=f2 action="/trade/upload_item" method="POST">
         <div class="row uniform">
             <div class="3u 12u$(small)">
                 <div class="select-wrapper">
@@ -96,8 +96,11 @@
             <br>
             <textarea name="message" id="내용" rows="6" placeholder="내용"></textarea>
         </div>
-
-        <input type="file" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
+        <div class="img-preview">
+            <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
+            <input id="img-url" type="hidden" name="url">
+        </div>
+        <input type="file" id="img" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
         <br><br>
         <ul class="actions">
             <li><input type="submit" value="등록 하기" /></li>
@@ -116,6 +119,27 @@
 <script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    
+    if (document.getElementById('img')) {
+      document.getElementById('img').addEventListener('change', function(e) {
+        const formData = new FormData();
+        console.log(this, this.files);
+        formData.append('img', this.files[0]);
+        axios.post('/trade/upload_item/img', formData)
+          .then((res) => {
+            document.getElementById('img-url').value = res.data.url;
+            document.getElementById('img-preview').src = res.data.url;
+            document.getElementById('img-preview').style.display = 'inline';
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
+    }
+</script>
 
 </body>
 </html>
