@@ -2,19 +2,27 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/upload_item', function(req, res, next) {
-    res.render('trade/upload_item.html', { title: 'Express' });
+    let session = req.session;
+
+    res.render('trade/upload_item.html', { session: session });
 });
 
 router.get('/item', function(req, res, next) {
-    res.render('trade/item.html', { title: 'Express' });
+    let session = req.session;
+
+    res.render('trade/item.html', { session : session });
 });
 
 router.get('/item_list', function(req, res, next) {
-    res.render('trade/item_list.html', { title: 'Express' });
+    let session = req.session;
+
+    res.render('trade/item_list.html', { session : session });
 });
 
 router.get('/upload_item', function(req, res, next) {
-    res.render('trade/upload_item.html');
+    let session = req.session;
+
+    res.render('trade/upload_item.html' , { session : session});
 });
 
 router.post('/upload_item',async (req,res,next)=>{
@@ -41,7 +49,9 @@ router.post('/upload_item',async (req,res,next)=>{
 });
 
 router.get('/direct_done', function(req, res, next) {
-    res.render('trade/direct_done.html');
+    let session = req.session;
+
+    res.render('trade/direct_done.html', { session : session});
 });
 
 module.exports = router;
