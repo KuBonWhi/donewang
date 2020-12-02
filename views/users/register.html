@@ -7,18 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
 <script>
-    function functionK() {
-        var chk1 = f.pro1.checked;
-        var chk2 = f.pro2.checked;
 
-        if(!chk1) {
-            alert("개인정보 수집 이용 약관을 동의해주세요.");
-            return false;
-        } else if(!chk2) {
-            alert("휴대폰 본인 확인 서비스 이용 약관을 동의해주세요.");
-            return false;
-        }
-    }
 </script>
 <body class="subpage">
 
@@ -31,7 +20,6 @@
             <a href="../trade/item_list">구매</a>
             <a href="../trade/direct_done">바로 후원 </a>
             <a href="../notice/notice">게시판</a>
-            <a href="../users/logout">로그아웃</a>
             <a href="../users/login">로그인</a>
             <a href="../users/register">회원가입</a>
         </nav>
@@ -50,10 +38,11 @@
             <form name=f action="register" method="post" onSubmit="return functionK();" >
                 <div class="row uniform">
                     <div class="7u 12u$(small)">
-                        <input type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+                        <input type="text" class="username_input" name="user_id" id="user_id" value="" placeholder="아이디" check_result="fail" required />
                     </div>
                     <div class="3u$ 12u$(small)">
-                        <input type="button" onclick="" value="중복 확인">
+                        <input type="button" class="id_overlap_button" onclick="id_overlap_check()" value="중복 확인">
+                        <span class="button disabled" id="id_style_sucess" style="display: none;">중복 확인</span>
                     </div>
                     <div class="7u 12u$(small)">
                         <input type="text" name="nickname" id="nickname" value="" placeholder="닉네임">
@@ -108,7 +97,47 @@
                 </div>
             </form>
             <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
             <script>
+                function id_overlap_check() {
+
+                    $('.username_input').change(function () {
+                        $('#id_check_sucess').hide();
+                        $('.id_overlap_button').show();
+                        $('.username_input').attr("check_result", "fail");
+                    })
+
+
+                    if ($('.username_input').val() == '') {
+                        alert('아이디를 입력해주세요.')
+                        return;
+                    }
+
+                    // id_overlap_input = document.querySelector('input[name="username"]');
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'dup_check',
+                        data: {
+                            'username': $('.username_input').val()
+                        },
+                        // datatype: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data['overlap'] == "fail") {
+                                alert("이미 존재하는 아이디 입니다.");
+                                id_overlap_input.focus();
+                                return;
+                            } else {
+                                alert("사용가능한 아이디 입니다.");
+                                $('.username_input').attr("check_result", "success");
+                                $('#id_check_sucess').show();
+                                $('.id_overlap_button').hide();
+                                return;
+                            }
+                        }
+                    });
+                }
                 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
                 function sample4_execDaumPostcode() {
                     new daum.Postcode(
@@ -170,6 +199,25 @@
                                 }
                             }
                         }).open();
+                }
+
+                function functionK() {
+                    var chk1 = f.pro1.checked;
+                    var chk2 = f.pro2.checked;
+
+                    if(!chk1) {
+                        alert("개인정보 수집 이용 약관을 동의해주세요.");
+                        return false;
+                    } else if(!chk2) {
+                        alert("휴대폰 본인 확인 서비스 이용 약관을 동의해주세요.");
+                        return false;
+                    }
+                    if ($('.username_input').attr("check_result") == "fail"){
+                        alert("아이디 중복체크를 해주시기 바랍니다.");
+                        $('.username_input').focus();
+                        return false;
+                    }
+
                 }
             </script>
 
