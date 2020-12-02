@@ -10,8 +10,10 @@
         function functionK() {
             if (f2.auction_time.value === "") {
                 alert("경매 기한을 선택해주세요.");
+                return false;
             } else if (f2.auction_type.value === "") {
                 alert("물품 종류를 선택해주세요.");
+                return false;
             }
         }
     </script>
