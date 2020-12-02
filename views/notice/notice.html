@@ -29,7 +29,29 @@
 </header>
 
 <div class="inner">
-    page
+    <br>
+    <strong style = "font-size: 20px;"> 후원 기관 </strong> <hr>
+    <table>
+        <tr>
+            <td> 번호</td>
+            <td> 제목 </td>
+            <td> 작성자 </td>
+            <td> 계급 </td>
+            <td> 등록일 </td>
+        </tr>
+        <%
+            var = i;
+            for(i=0; i<10; i++) {
+        %>
+            <tr>
+                <td><%= %></td>
+                <td><%= %></td>
+                <td><%= %></td>
+                <td><%= %></td>
+                <td><%= %></td>
+            </tr>
+        <% } %>
+    </table>
 </div>
 
 <!-- Footer -->
