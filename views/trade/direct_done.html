@@ -11,11 +11,13 @@
             if(f1.interest_spon.value === "")
             {
                 alert("후원 대상을 선택해주세요.");
+                return false;
             }
 
             else if(f1.bank_category.value === "")
             {
                 alert("은행을 선택해주세요.");
+                return false;
             }
 
             if(f1.bank_category.value === "1")

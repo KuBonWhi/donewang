@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
+<script>
+    function functionK() {
+        var chk1 = f.pro1.checked;
+        var chk2 = f.pro2.checked;
+
+        if(!chk1) {
+            alert("개인정보 수집 이용 약관을 동의해주세요.");
+            return false;
+        } else if(!chk2) {
+            alert("휴대폰 본인 확인 서비스 이용 약관을 동의해주세요.");
+            return false;
+        }
+    }
+</script>
 <body class="subpage">
 
 <!-- Header -->
@@ -32,10 +46,19 @@
             <!-- Form -->
             <h3> <b> 회원 가입 </b> </h3>
 
-            <form action="register" method="post" >
+            <form name=f action="register" method="post" onSubmit="return functionK();" >
                 <div class="row uniform">
-                    <div class="12u$">
-                        <input type="text" name="user_id" id="user_id" value="" placeholder="아이디" />
+                    <div class="7u 12u$(small)">
+                        <input type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+                    </div>
+                    <div class="3u$ 12u$(small)">
+                        <input type="button" onclick="" value="중복 확인">
+                    </div>
+                    <div class="7u 12u$(small)">
+                        <input type="text" name="nickname" id="nickname" value="" placeholder="닉네임">
+                    </div>
+                    <div class="3u$ 12u$(small)">
+                        <input type="button" onclick="" value="중복 확인">
                     </div>
                     <div class="12u$">
                         <input type="password" name="user_pw" id="user_pw" value="" placeholder="비밀번호" />
@@ -68,12 +91,12 @@
                     <input type="hidden" id="sample4_engAddress" placeholder="영문주소">
 
                     <div class="6u 12u$(small)">
-                        <input type="checkbox" id="demo-copy" name="demo-copy">
-                        <label for="demo-copy" style="color: #8C8C8C"><a href="provision1">개인정보 수집 이용 동의</a> </label>
+                        <input type="checkbox" id="pro1" name="pro1">
+                        <label for="pro1" style="color: #8C8C8C"><a href="provision1">개인정보 수집 이용</a> </label>
                     </div>
                     <div class="6u$ 12u$(small)">
-                        <input type="checkbox" id="demo-human" name="demo-human">
-                        <label for="demo-human" style="color: #8C8C8C"><a href="provision2">휴대폰 본인 확인 서비스</a></label>
+                        <input type="checkbox" id="pro2" name="pro2">
+                        <label for="pro2" style="color: #8C8C8C"><a href="provision2">휴대폰 본인 확인 서비스</a></label>
                     </div>
                     <div class="12u$">
                         <ul class="actions">
