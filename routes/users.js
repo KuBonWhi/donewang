@@ -74,7 +74,6 @@ router.post('/logout',async (req,res,next)=>{
 });
 
 router.get('/register', function(req, res, next) {
-  let session = req.session;
 
   res.render("users/register.html");
 });
