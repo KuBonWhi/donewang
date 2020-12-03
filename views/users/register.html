@@ -38,44 +38,45 @@
             <form name=f action="register" method="post" onSubmit="return functionK();" >
                 <div class="row uniform">
                     <div class="7u 12u$(small)">
-                        <input type="text" class="username_input" name="user_id" id="user_id" value="" placeholder="아이디" check_result="fail" required />
+                        <input type="text" class="userid_input" name="user_id" id="user_id" value="" placeholder="아이디" check_result="fail" required />
                     </div>
                     <div class="3u$ 12u$(small)">
-                        <input type="button" class="id_overlap_button" onclick="id_overlap_check()" value="중복 확인">
-                        <span class="button disabled" id="id_style_sucess" style="display: none;">중복 확인</span>
+                        <input type="button" class="id_overlap_button" value="중복 확인">
+                        <span id="id_style_sucess" class="button disabled" style="display: none;">중복 확인</span>
                     </div>
                     <div class="7u 12u$(small)">
-                        <input type="text" name="nickname" id="nickname" value="" placeholder="닉네임">
+                        <input type="text" class="nickname_input" name="user_nickname" id="nickname" value="" placeholder="닉네임" check_result="fail" required />
                     </div>
                     <div class="3u$ 12u$(small)">
-                        <input type="button" onclick="" value="중복 확인">
+                        <input type="button" class="nickname_overlap_button" onclick="" value="중복 확인">
+                        <span id="nickname_style_sucess" class="button disabled" style="display: none">중복 확인</span>
                     </div>
                     <div class="12u$">
-                        <input type="password" name="user_pw" id="user_pw" value="" placeholder="비밀번호" />
+                        <input type="password" class="passwd_input" name="user_pw" id="user_pw" value="" placeholder="비밀번호" check_result="fail" oninput="checkpwd()" required/>
                     </div>
                     <div class="12u$">
-                        <input type="password" name="pw_confirm" id="pw_confirm" value="" placeholder="비밀번호 확인" />
+                        <input type="password" class="passwd_confirm_input" name="pw_confirm" id="pw_confirm" value="" placeholder="비밀번호 확인" check_result="fail" oninput="checkpwd()" required/>
                     </div>
                     <div class="12u$">
-                        <input type="text" name="user_name" id="user_name" value="" placeholder="이름" />
+                        <input type="text" class="name_input" name="user_name" id="user_name" value="" placeholder="이름" check_result="fail" required/>
                     </div>
                     <div class="12u$">
-                        <input type="text" name="user_phone_num" id="user_phone_num" value="" placeholder="전화번호" />
+                        <input type="text" class="phone_num_input" name="user_phone_num" id="user_phone_num" value="" placeholder="전화번호" check_result="fail" required/>
                     </div>
 
                     <div class="7u 12u$(small)">
-                        <input type="text" id="sample4_postcode" placeholder="우편번호" name="zip_code">
+                        <input type="text" class="zipcode_input" id="sample4_postcode" placeholder="우편번호" name="zip_code" check_result="fail" required/>
                     </div>
                     <div class="3u$ 12u$(small)">
                         <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
                     </div>
                     <div class="12u$">
-                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr1" >
+                        <input type="text" class="addr1_input" id="sample4_roadAddress" placeholder="도로명주소" name="addr1" check_result="fail" required/>
                     </div>
                     <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" >
                     <span id="guide" style="color: #999; display: none"></span>
                     <div class="12u$">
-                        <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
+                        <input type="text" class="addr2_input" id="sample4_detailAddress" placeholder="상세주소" name="addr2" check_result="fail" required/>
                     </div>
                     <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
                     <input type="hidden" id="sample4_engAddress" placeholder="영문주소">
@@ -99,45 +100,141 @@
             <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
             <script>
-                function id_overlap_check() {
-
-                    $('.username_input').change(function () {
+                $(document).ready(function () {
+                    $('.userid_input').change(function () {
+                        document.getElementById('user_id').style.borderColor="#ff0202"
                         $('#id_check_sucess').hide();
                         $('.id_overlap_button').show();
-                        $('.username_input').attr("check_result", "fail");
+                        $('.userid_input').attr("check_result", "fail");
+                        document.getElementById('id_style_sucess').style.display="none"
                     })
 
+                    $('.nickname_input').change(function () {
+                        document.getElementById('nickname').style.borderColor="#ff0202"
+                        $('#nickname_check_sucess').hide();
+                        $('.nickname_overlap_button').show();
+                        $('.nickname_input').attr("check_result", "fail");
+                        document.getElementById('nickname_style_sucess').style.display="none"
+                    })
 
-                    if ($('.username_input').val() == '') {
-                        alert('아이디를 입력해주세요.')
-                        return;
-                    }
+                    $(".id_overlap_button").on("click", function () {
+                        var id = $('.userid_input').val()
 
-                    // id_overlap_input = document.querySelector('input[name="username"]');
-
-                    $.ajax({
-                        type: "POST",
-                        url: 'dup_check',
-                        data: {
-                            'username': $('.username_input').val()
-                        },
-                        // datatype: 'json',
-                        success: function (data) {
-                            console.log(data);
-                            if (data['overlap'] == "fail") {
-                                alert("이미 존재하는 아이디 입니다.");
-                                id_overlap_input.focus();
-                                return;
-                            } else {
-                                alert("사용가능한 아이디 입니다.");
-                                $('.username_input').attr("check_result", "success");
-                                $('#id_check_sucess').show();
-                                $('.id_overlap_button').hide();
+                        if (id == '') {
+                            alert('아이디를 입력해주세요.')
+                            return;
+                        }
+                        $.ajax({
+                            url: 'dup_check',
+                            dataType : "JSON",
+                            type: "POST",
+                            data: { 'id': id }
+                        })
+                        .done(function (json) {
+                            if(json.data == 'fail') {
+                                alert("이미 존재하는 아이디 입니다.")
+                                $('.userid_input').focus();
                                 return;
                             }
+                            else {
+                                alert("사용가능한 아이디입니다.")
+                                $('.userid_input').attr("check_result", "pass")
+                                document.getElementById('user_id').style.borderColor="#8fc5ef"
+                                $('.id_overlap_button').hide()
+                                document.getElementById('id_style_sucess').style.display="block"
+                            }
+                        })
+                        .fail(function (xhr, status, errorThorwn) {
+                            alert("Ajax failed")
+                        })
+                    })
+
+                    $(".nickname_overlap_button").on("click", function () {
+                        var nickname = $('.nickname_input').val()
+
+                        if (nickname == '') {
+                            alert('닉네임을 입력해주세요.')
+                            return;
                         }
-                    });
+                        else {
+                            alert("사용가능한 닉네임입니다.")
+                            $('.nickname_input').attr("check_result", "pass")
+                            document.getElementById('nickname').style.borderColor="#8fc5ef"
+                            $('.nickname_overlap_button').hide()
+                            document.getElementById('nickname_style_sucess').style.display="block"
+                        }
+                        // $.ajax({
+                        //     url: 'dup_check',
+                        //     dataType : "JSON",
+                        //     type: "POST",
+                        //     data: { 'nickname': nickname }
+                        // })
+                        //     .done(function (json) {
+                        //         if(json.data == 'fail') {
+                        //             alert("이미 존재하는 닉네임 입니다.")
+                        //             $('.nickname_input').focus();
+                        //             return;
+                        //         }
+                        //         else {
+                        //             alert("사용가능한 아이디입니다.")
+                        //             $('.nickname_input').attr("check_result", "pass")
+                        //             document.getElementById('nickname').style.borderColor="#8fc5ef"
+                        //             $('.id_overlap_button').hide()
+                        //             document.getElementById('nickname_style_sucess').style.display="block"
+                        //         }
+                        //     })
+                        //     .fail(function (xhr, status, errorThorwn) {
+                        //         alert("Ajax failed")
+                        //     })
+                    })
+
+                    $('.passwd_input').change(function () {
+                        //document.getElementById('user_pw').style.borderColor="#ff0202"
+                        document.getElementById('user_pw').style.borderColor="#8fc5ef"
+                        $('.passwd_input').attr("check_result", "pass")
+                    })
+
+                    $('.name_input').change(function () {
+                        document.getElementById('user_name').style.borderColor="#8fc5ef"
+                        $('.name_input').attr("check_result", "pass")
+                    })
+
+                    $('.phone_num_input').change(function () {
+                        document.getElementById('user_phone_num').style.borderColor="#8fc5ef"
+                        $('.phone_num_input').attr("check_result", "pass")
+                    })
+
+                    $('.zipcode_input').change(function () {
+                        document.getElementById('sample4_postcode').style.borderColor="#8fc5ef"
+                        $('.zipcode_input').attr("check_result", "pass")
+                    })
+
+                    $('.addr1_input').change(function () {
+                        document.getElementById('sample4_roadAddress').style.borderColor="#8fc5ef"
+                        $('.addr1_input').attr("check_result", "pass")
+                    })
+
+                    $('.addr2_input').change(function () {
+                        document.getElementById('sample4_detailAddress').style.borderColor="#8fc5ef"
+                        $('.addr2_input').attr("check_result", "pass")
+                    })
+                })
+
+                function checkpwd() {
+                    var pw1 = $('.passwd_input').val();
+                    var pw2 = $('.passwd_confirm_input').val();
+
+                    if(pw1 == pw2) {
+                        // document.getElementById('user_pw').style.borderColor="#8fc5ef"
+                        document.getElementById('pw_confirm').style.borderColor="#8fc5ef"
+                        $('.passwd_confirm_input').attr("check_result", "pass");
+                    }
+                    else {
+                        document.getElementById('pw_confirm').style.borderColor="#ff0202"
+                    }
+
                 }
+
                 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
                 function sample4_execDaumPostcode() {
                     new daum.Postcode(
@@ -205,6 +302,17 @@
                     var chk1 = f.pro1.checked;
                     var chk2 = f.pro2.checked;
 
+                    if ($('.userid_input').attr("check_result") == "fail"){
+                        alert("아이디 중복체크를 해주시기 바랍니다.");
+                        $('.userid_input').focus();
+                        return false;
+                    }
+                    if ($('.usernickname_input').attr("check_result") == "fail"){
+                        alert("닉네임 중복체크를 해주시기 바랍니다.");
+                        $('.usernickname_input').focus();
+                        return false;
+                    }
+
                     if(!chk1) {
                         alert("개인정보 수집 이용 약관을 동의해주세요.");
                         return false;
@@ -212,12 +320,6 @@
                         alert("휴대폰 본인 확인 서비스 이용 약관을 동의해주세요.");
                         return false;
                     }
-                    if ($('.username_input').attr("check_result") == "fail"){
-                        alert("아이디 중복체크를 해주시기 바랍니다.");
-                        $('.username_input').focus();
-                        return false;
-                    }
-
                 }
             </script>
 
