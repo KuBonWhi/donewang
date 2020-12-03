@@ -70,10 +70,22 @@ router.get('/item', function(req, res, next) {
     res.render('trade/item.html', { session : session });
 });
 
-router.get('/item_list', function(req, res, next) {
+router.get('/item_list', async(req, res, next) =>{
     let session = req.session;
-
-    res.render('trade/item_list.html', { session : session });
+    console.log(';item@@@@@\n');
+    const product = await model['product_info'].findAll({
+        // include:{
+        //     where:{
+        //
+        //     },
+        // }
+        //order: 'createdAt DESC',
+        //attributes:['product_picture'],
+        raw: true
+    });
+    console.log('product:',product);
+    res.render('trade/item_list.html', {title: '게시판 리스트', rows: product, session:session});
+    //res.render('trade/item_list.html', { session : session });
 });
 
 router.get('/upload_item', function(req, res, next) {
@@ -104,6 +116,25 @@ router.get('/upload_item', function(req, res, next) {
 //         next(err);
 //     }
 // });
+
+//var express = require('express');
+//var router = express.Router();
+//var mysql_odbc = require('../db/db_conn')();
+//var conn = mysql_odbc.init();
+
+
+//router.get('/item_list', async (req, res, next) => {
+    //var page = req.params.page;
+    //var sql = "select * from product_infos";
+    //model.query(sql, function (err, rows) {
+    //    if (err) console.error("err : " + err);
+    //    res.render('list', {title: '게시판 리스트', rows: rows});
+    //});
+
+//});
+//module.exports = router;
+
+
 
 router.get('/direct_done', function(req, res, next) {
     let session = req.session;
