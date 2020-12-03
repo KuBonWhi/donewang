@@ -29,26 +29,29 @@
 </header>
 
 <div class="inner">
-    <h3> 아 이 디 찾 기 </h3>
+    <br><br>
+    <strong style = "font-size: 20px; "> 아이디 찾기 </strong> <hr>
     <form action="find_id" method="post">
-        <table>
-            <tr>
-                <td>이름 : </td>
-                <td><input type="text" name="user_name"></td>
-            </tr>
-            <tr>
-                <td>전화번호 : </td>
-                <td><input type="text" name="user_phone_num"></td>
-            </tr>
-            <tr>
-                <td>생년월일 : </td>
-                <td><input type="text" name="user_birth"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="아이디 찾기"></td>
-            </tr>
-        </table>
+        <div class="row uniform">
+            <div class="4u 12u$(xsmall)">
+                <div class="row uniform">
+                    <div class="12u$">
+                        <input type="text" name="user_name" id="user_name" value="" placeholder="이름" />
+                    </div>
+                    <div class="12u$">
+                        <input type="text" name="user_phone_num" id="user_phone_num" value="" placeholder="전화번호" />
+                    </div>
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="아이디 찾기" /></li>
+                            <li><input type="reset" value="초기화" class="alt" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
+    <br><br>
 </div>
 
 <!-- Footer -->
