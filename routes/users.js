@@ -108,6 +108,33 @@ router.post('/register',async (req,res,next)=>{
   }
 });
 
+router.post('/dup_check',async (req,res,next)=>{
+  var data = req.body.id;
+
+  console.log(data)
+
+  try{
+
+    let result = await model['member_info'].findOne({
+      where: {
+        id : data
+      }
+    });
+
+    if(result == null)
+    {
+      res.json( { data : 'pass' })
+    }
+    else
+    {
+      res.json( { data : 'fail' })
+    }
+  }catch(err){
+    console.log(err);
+    next(err);
+  }
+});
+
 router.get('/find_id', function(req, res, next) {
   let session = req.session;
 
