@@ -49,6 +49,12 @@
         #pos6:checked ~ .bullet label:nth-child(2),
         #pos7:checked ~ .bullet label:nth-child(3),
         #pos8:checked ~ .bullet label:nth-child(4){background:#666;}
+
+    </style>
+    <style type="text/css">
+        a:link { color:  #555555; text-decoration: none;}
+        a:visited { color: #555555; text-decoration: none;}
+        a:hover { color: #555555; text-decoration: none;}
     </style>
 </head>
 <body>
@@ -57,7 +63,6 @@
 <header id="header">
     <div class="inner">
         <a href="/" class="logo"><img src="/img/logo_n.png" style="size:auto;"></a>
-
         <nav id="nav">
             <a href="trade/upload_item" role="tab">판매</a>
             <a href="trade/item_list">구매</a>
@@ -128,7 +133,9 @@
                         for(j=0; j<4; j++) {
                         var data = productPic[i*4+j];
                         %>
+
                         <div class="3u 12u$(small)" align="center">
+                            <a href="../trade/item?product_id=<%=data.product_id%>">
                             <div class="image round">
                                 
                                 <img id="mainImg" src="<%= data.product_picture %>" alt="Pic 01" style="width: 170px; height: 170px;" />
@@ -138,7 +145,9 @@
                             <h4><%=data.title%></h4>
                             시작가격| <br>
                             마감기한| 36:20
+                            </a>
                         </div>
+
                         <% } %>
                     </div>
                 </li>
