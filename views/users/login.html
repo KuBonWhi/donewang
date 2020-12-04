@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <title>도 네 왕</title>
     <link rel="stylesheet" href="../assets/css/main.css" />
+
 </head>
 <body class="subpage">
 
 <!-- Header -->
 <header id="header">
     <div class="inner">
+        <% if(session.loginAlert == true) { %>
+            <script>
+                alert("로그인이 필요합니다")
+
+            </script>
+        <% } %>
+        <% session.loginAlert = false %>
         <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
         <nav id="nav">
             <a href="../trade/upload_item" role="tab">판매</a>

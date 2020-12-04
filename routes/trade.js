@@ -58,11 +58,16 @@ router.post('/upload_item', upload2.none(), async (req, res, next) => {
   }
 });
 
-
 router.get('/upload_item', function(req, res, next) {
     let session = req.session;
 
-    res.render('trade/upload_item.html', { session: session });
+    if(session.user === undefined)
+    {
+        session.loginAlert = true;
+        res.redirect("/users/login")
+    }
+
+    res.render('trade/upload_item.html' , { session : session});
 });
 
 router.get('/item', function(req, res, next) {
@@ -87,12 +92,6 @@ router.get('/item_list', async(req, res, next) =>{
     console.log('product:',product);
     res.render('trade/item_list.html', {title: '게시판 리스트', rows: product, session:session});
     //res.render('trade/item_list.html', { session : session });
-});
-
-router.get('/upload_item', function(req, res, next) {
-    let session = req.session;
-
-    res.render('trade/upload_item.html' , { session : session});
 });
 
 // router.post('/upload_item',async (req,res,next)=>{
@@ -139,6 +138,12 @@ router.get('/upload_item', function(req, res, next) {
 
 router.get('/direct_done', function(req, res, next) {
     let session = req.session;
+
+    if(session.user === undefined)
+    {
+        session.loginAlert = true;
+        res.redirect("/users/login")
+    }
 
     res.render('trade/direct_done.html', { session : session});
 });
