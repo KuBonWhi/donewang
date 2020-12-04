@@ -80,5 +80,55 @@ router.get('/', async (req, res, next) => {
   // res.render('main.html', { title: 'Express' });
 });
 
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
+
+router.get('/search', async (req, res, next) => {
+  let keyword = req.query.keyword;
+
+  console.log(req.query)
+
+  try {
+    items = await models['product_info'].findAll({
+      where:
+          {
+            title: {[Op.like]: "%" + keyword + "%"}
+
+            // $or: [
+            //   {
+            //     product_describe: {[Op.like]: "%" + keyword + "%"}
+            //   },
+            //   {
+            //     title: {[Op.like]: "%" + keyword + "%"}
+            //   }
+            // ]
+          }
+    });
+
+
+    //       {
+    //       $or: [
+    //       {
+    //     product_describe : { [Op.like] : "%" + keyword + "%"},
+    //     title : { [Op.like] : "%" + keyword + "%" }
+    //   }
+    //   ]
+    // }
+
+
+    res.send(items)
+
+    // res.render('main.html', {
+    //   productPic: product_pic,
+    //   session : session,
+    //   totSum : monoSum
+    //   //productPic : 'uploads/fig.LinkState1607002337230.png'
+    // });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 
 module.exports = router;
