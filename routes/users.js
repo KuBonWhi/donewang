@@ -67,6 +67,8 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.post('/logout',async (req,res,next)=>{
+  let session = req.session;
+
   req.session.destroy();
   res.clearCookie('sid');
 
