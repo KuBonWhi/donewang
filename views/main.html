@@ -79,9 +79,9 @@
 <section id="banner">
     <div class="inner">
         <div class="row uniform">
-            <div class="6u 12u$(small)">
+            <div class="7u 12u$(small)">
                 <header>
-                    <h1 align="center">"중고에서 시작되는 <br> 따뜻한 울림"</h1>
+                    <h1 align="center">"더 나은 세상을 위한 후원 <br>중고 경매로 시작하세요"</h1>
                 </header>
 
                 <div class="box">
@@ -129,15 +129,17 @@
                     <div class="row uniform">
                         <%
                         var j;
-                        for(j=0; j<4; j++) { %>
+                        for(j=0; j<4; j++) {
+                        var data = productPic[i*4+j];
+                        %>
                         <div class="3u 12u$(small)" align="center">
                             <div class="image round">
                                 
-                                <img id="mainImg" src="<%= productPic[i*4+j].product_picture %>" alt="Pic 01" />
+                                <img id="mainImg" src="<%= data.product_picture %>" alt="Pic 01" style="width: 170px; height: 170px;" />
                                 
                             </div>
 
-                            <h4>제목</h4>
+                            <h4><%=data.title%></h4>
                             시작가격| 55,000 <br>
                             마감기한| 36:20
                         </div>
