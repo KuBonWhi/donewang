@@ -1,15 +1,26 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>도 네 왕</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../../assets/css/main.css"/>
 
     <style type="text/css">
-        a:link { color:  #555555; text-decoration: none;}
-        a:visited { color: #555555; text-decoration: none;}
-        a:hover { color: #555555; text-decoration: none;}
+        a:link {
+            color: #555555;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #555555;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #555555;
+            text-decoration: none;
+        }
     </style>
 
 </head>
@@ -18,17 +29,17 @@
 <!-- Header -->
 <header id="header">
     <div class="inner">
-        <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
+        <a href="../../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
         <nav id="nav">
-            <a href="../trade/upload_item" role="tab">판매</a>
-            <a href="../trade/item_list">구매</a>
-            <a href="../trade/direct_done">바로 후원 </a>
-            <a href="../notice/notice">게시판</a>
+            <a href="../../trade/upload_item" role="tab">판매</a>
+            <a href="../../trade/item_list">구매</a>
+            <a href="../../trade/direct_done">바로 후원 </a>
+            <a href="../../notice/notice">게시판</a>
             <% if(session.user) { %>
-            <a href="../users/logout">로그아웃</a>
+            <a href="../../users/logout">로그아웃</a>
             <% } else { %>
-            <a href="../users/login">로그인</a>
-            <a href="../users/register">회원가입</a>
+            <a href="../../users/login">로그인</a>
+            <a href="../../users/register">회원가입</a>
             <% } %>
         </nav>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
@@ -47,7 +58,7 @@
                     <div class="3u 12u$(small)">
                     </div>
                     <div class="6u 12u$(small)">
-                        <input type="text" name="query" id="query" value="" placeholder="" />
+                        <input type="text" name="query" id="query" value="" placeholder=""/>
                     </div>
                     <div class="3u$ 12u$(small)">
                         <input type="submit" value="검색"/>
@@ -61,53 +72,67 @@
         <%
         var i;
         var j;
-        for(i=0; i<2; i++) {
+        for(i=((page * page_num) - page_num) / 4; i < (page * page_num) / 4; i++) {
         %>
         <div class="row 50% uniform">
             <%
-                    for(j=0; j<4; j++) {
-                        var data = rows[i*4+j];
+            for(j=0; j < 4; j++) {
+            k = i*4+j
+            if(k <= length) {
+            var data = rows[k]
             %>
-
             <div class="3u" align="center">
-                <a href="../trade/item?product_id=<%=data.product_id%>">
-                <table style="width: fit-content;">
-                    <tr align="center">
-                        <td colspan="2">
-                            <img src="<%=data.product_picture %>" style="width: 200px; height: 200px"> </td>
-                    </tr>
-                    <tr align="center">
-                        <td>제목</td>
-                        <td><%=data.title%></td>
-                    </tr>
-                    <tr align="center">
-                        <td>가격</td>
-                        <td><%=data.start_price%></td>
-                    </tr>
-                    <tr align="center">
-                        <td>남은 시간</td>
-                        <td><%=data.duration%></td>
-                    </tr>
-                </table>
+                <a href="../../trade/item?product_id=<%=data.product_id%>">
+                    <table style="width: fit-content;">
+                        <tr align="center">
+                            <td colspan="2">
+                                <img src="<%=data.product_picture %>" style="width: 200px; height: 200px"></td>
+                        </tr>
+                        <tr align="center">
+                            <td>제목</td>
+                            <td><%=data.title%></td>
+                        </tr>
+                        <tr align="center">
+                            <td>가격</td>
+                            <td><%=data.start_price%></td>
+                        </tr>
+                        <tr align="center">
+                            <td>남은 시간</td>
+                            <td><%=data.duration%></td>
+                        </tr>
+                    </table>
                 </a>
             </div>
             <% } %>
+            <% } %>
         </div>
-        <br><br><br>
         <% } %>
+        <br><br>
+        <tr>
+            <td colspan="6">
+                <%
+                for(var j = 0; j < rows.length / page_num; j++){
+                %>
+                [<a href="/trade/item_list?page=<%= j + 1 %>"><%= j + 1 %></a>]
+                <%
+                }
+                %>
+            </td>
+        </tr>
+        <br>
     </div>
 </div>
 
 <!-- Footer -->
-<footer id = footer>
+<footer id=footer>
     DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
 </footer>
 
 <!-- Scripts -->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/skel.min.js"></script>
-<script src="../assets/js/util.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/skel.min.js"></script>
+<script src="../../assets/js/util.js"></script>
+<script src="../../assets/js/main.js"></script>
 
 </body>
 </html>

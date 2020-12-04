@@ -102,34 +102,40 @@ router.get('/item', function(req, res, next) {
 });
 
 router.get('/item_list', async(req, res, next) =>{
+
+    var page = req.query.page;
+    let session = req.session;
+
+    if(page == undefined)
+        page = 1;
+    console.log(page);
+
     try {
-        let session = req.session;
         const product = await model['product_info'].findAll({
             //order: 'createdAt DESC',
             //attributes:['product_picture'],
             raw: true
         });
-        console.log('product: ', product.length);
         let product_ = null;
-        console.log('ppic: ',product_);
         if(product[0] !== undefined){
-            console.log('if문 안');
             product_ = product;
         }
-        
+
         res.render('trade/item_list.html', {
-          title: '게시판 리스트',
-          rows: product_,
-          session : session,
-          //productPic : 'uploads/fig.LinkState1607002337230.png'
+            title: '게시판 리스트',
+            rows: product_,
+            page : page,
+            length : product_.length - 1,
+            page_num : 8,
+            pass : true,
+            session : session,
         });
-      } catch (err) {
+        console.log(product_.length - 1, '/', page);
+    } catch (err) {
         console.error(err);
         next(err);
-      }
-    //res.render('trade/item_list.html', {title: '게시판 리스트', rows: product, session:session});
+    }
 });
-
 
 router.get('/direct_done', function(req, res, next) {
     let session = req.session;
