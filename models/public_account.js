@@ -23,9 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     total_sum: DataTypes.INTEGER,
     time: {
       primaryKey: true,
-      type: 'TIMESTAMP',
+      type: 'DATETIME',
       allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+      //defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,

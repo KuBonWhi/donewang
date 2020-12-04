@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     order: DataTypes.INTEGER,
     bid_time:{
       primaryKey: true,
-      type: 'TIMESTAMP',
+      type: 'DATETIME',
       allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     bid_price: DataTypes.INTEGER
   }, {
