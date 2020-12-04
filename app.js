@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     key: 'sid',
     secret: 'secret',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
         maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간

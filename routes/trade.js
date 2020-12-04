@@ -36,16 +36,41 @@ router.post('/upload_item/img',upload.single('img'), (req, res) => {
 
 //판매 db등록
 const upload2 = multer();
+
+router.post('/logout',async (req,res,next)=>{
+    let session = req.session;
+
+    req.session.destroy();
+    res.clearCookie('sid');
+
+    res.redirect("/")
+});
+
 router.post('/upload_item', upload2.none(), async (req, res, next) => {
-  try {
+
     let body = req.body;
-    console.log('!!!!!!!!!!!!!!!\n',body.url);
+    console.log('!!!!!!!!!!!!!!!\n',body);
+
+    let get_info;
+
+    try {
+        get_info = await model['member_info'].findOne({
+            where : {
+                id : body.user_id
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+
+    try {
     const post = await model['product_info'].create({
       //product_id : 7, ==>자동증가됨
-      seller_id: 1,
+      seller_id: get_info.id,
       product_describe: body.message,
       start_price: body.start_price,
-      phone_num: '1234',
+      phone_num: get_info.phone_num,
       interest_spon: body.done_percentage,
       product_picture: body.url,
       duration: body.auction_time,

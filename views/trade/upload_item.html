@@ -100,6 +100,7 @@
         </div>
         <input type="file" id="img" name = "pic" accept=".jepg, .jpg, .png"  onchange="alert(this.value)" multiple>
         <br><br>
+        <input type="hidden" id="user_id" name = "user_id" style="display: none" value="<%=session.user.id%>">
         <ul class="actions">
             <li><input type="submit" value="등록 하기" /></li>
             <li><input type="reset" value="Reset" class="alt" /></li>
