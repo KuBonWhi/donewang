@@ -100,21 +100,22 @@
 
 <section id="three" class="wrapper align-center">
     <div class="inner">
-        <form method="post" action="#">
+<!--        <form method="post" action="#">-->
             <div class="row uniform">
                 <div class="6u 12u$(small)">
                     <div class="row uniform">
                         <div class="9u 12u$(small)">
-                            <input type="text" name="query" id="query" value="" placeholder="판매 상품 검색" style="background-color: white;"/>
+                            <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색" style="background-color: white;"/>
                         </div>
                         <div class="3u$ 12u$(small)">
-                            <input type="submit" value="검색" style="background-color: white;"/>
+                            <input type="Button" value="검색" onclick="search()" style="background-color: white;"/>
                         </div>
 
                     </div>
                 </div>
             </div>
-        </form>
+<!--        </form>-->
+        <hr>
 
         <h4 align="left"> 추천 제품 </h4>
         <div class="slide">
@@ -210,6 +211,19 @@
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+    function search() {
+        var keyword = $('.keyword').val();
+
+        if(keyword == '' || keyword == ' ') {
+            alert("내용을 입력해 주세요.");
+            return false;
+        }
+
+        var keyword = keyword.replaceAll(" ", "+");
+        location.href = '/search?keyword=' + keyword;
+    }
+</script>
 
 </body>
 </html>
