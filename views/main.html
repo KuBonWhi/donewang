@@ -72,6 +72,7 @@
         </nav>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>
+
 </header>
 
 <!-- Banner -->
@@ -131,7 +132,9 @@
                         for(j=0; j<4; j++) { %>
                         <div class="3u 12u$(small)" align="center">
                             <div class="image round">
-                                <img src="{{productPic}}" alt="Pic 01" />
+                                
+                                <img id="mainImg" src="<%= productPic[i*4+j].product_picture %>" alt="Pic 01" />
+                                
                             </div>
 
                             <h4>제목</h4>
