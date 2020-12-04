@@ -77,63 +77,33 @@ router.get('/item', function(req, res, next) {
 });
 
 router.get('/item_list', async(req, res, next) =>{
-    let session = req.session;
-    console.log(';item@@@@@\n');
-    const product = await model['product_info'].findAll({
-        // include:{
-        //     where:{
-        //
-        //     },
-        // }
-        //order: 'createdAt DESC',
-        //attributes:['product_picture'],
-        raw: true
-    });
-    console.log('product:',product);
-    res.render('trade/item_list.html', {title: '게시판 리스트', rows: product, session:session});
-    //res.render('trade/item_list.html', { session : session });
+    try {
+        let session = req.session;
+        const product = await model['product_info'].findAll({
+            //order: 'createdAt DESC',
+            //attributes:['product_picture'],
+            raw: true
+        });
+        console.log('product: ', product.length);
+        let product_ = null;
+        console.log('ppic: ',product_);
+        if(product[0] !== undefined){
+            console.log('if문 안');
+            product_ = product;
+        }
+        
+        res.render('trade/item_list.html', {
+          title: '게시판 리스트',
+          rows: product_,
+          session : session,
+          //productPic : 'uploads/fig.LinkState1607002337230.png'
+        });
+      } catch (err) {
+        console.error(err);
+        next(err);
+      }
+    //res.render('trade/item_list.html', {title: '게시판 리스트', rows: product, session:session});
 });
-
-// router.post('/upload_item',async (req,res,next)=>{
-//     try{
-//         let body = req.body;
-
-//         await model['product_info'].create({
-//             // title : body.postTitle,
-//             // author : body.author
-//             product_id : 2,
-//             seller_id: 0,
-//             product_describe: body.message,
-//             start_price: body.start_price,
-//             phone_num: 0,
-//             interest_spon: body.done_percentage,
-//             product_picture: body.pic,
-//             duration: body.expire_time
-//         });
-//         res.redirect('/trade/upload_item');
-//     }catch(err){
-//         console.log(err);
-//         next(err);
-//     }
-// });
-
-//var express = require('express');
-//var router = express.Router();
-//var mysql_odbc = require('../db/db_conn')();
-//var conn = mysql_odbc.init();
-
-
-//router.get('/item_list', async (req, res, next) => {
-    //var page = req.params.page;
-    //var sql = "select * from product_infos";
-    //model.query(sql, function (err, rows) {
-    //    if (err) console.error("err : " + err);
-    //    res.render('list', {title: '게시판 리스트', rows: rows});
-    //});
-
-//});
-//module.exports = router;
-
 
 
 router.get('/direct_done', function(req, res, next) {

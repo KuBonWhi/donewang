@@ -59,12 +59,12 @@
         <div class="row 50% uniform">
             <%
                     for(j=0; j<4; j++) {
-                        var data = rows[j];
+                        var data = rows[i*2+j];
             %>
                         <div class="3u" align="center">
                             <table style="width: fit-content;">
                                 <tr align="center">
-                                    <td colspan="2"> <img src="../images/pic01.jpg" style="width: 200px; height: 200px"> </td>
+                                    <td colspan="2"> <img src="<%= data.product_picture %>" style="width: 200px; height: 200px"> </td>
                                 </tr>
                                 <tr align="center">
                                     <td>제목</td>
