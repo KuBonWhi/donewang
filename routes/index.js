@@ -11,19 +11,20 @@ router.get('/', async (req, res, next) => {
         //attributes:['product_picture'],
         raw: true
     });
-    console.log('product: ', product);
+    console.log('product: ', product.length);
     let product_pic = null;
     console.log('ppic: ',product_pic);
     if(product[0] !== undefined){
         console.log('if문 안');
-        product_pic = product[0]['product_picture'];
+        product_pic = product;
     }
+    //len = product.length;
     //console.log('product0번!!!!!:\n',product,'\n');
     //product[0]['product_picture']
     res.render('main.html', {
       productPic: product_pic,
-      session : session
-      //productPic : '/uploads/fig.LinkState1606895231941.png'
+      session : session,
+      //productPic : 'uploads/fig.LinkState1607002337230.png'
     });
   } catch (err) {
     console.error(err);
