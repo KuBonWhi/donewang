@@ -48,7 +48,8 @@ router.post('/upload_item', upload2.none(), async (req, res, next) => {
       phone_num: '1234',
       interest_spon: body.done_percentage,
       product_picture: body.url,
-      duration: body.auction_time
+      duration: body.auction_time,
+      title: body.title,
     });
     res.redirect('/');
   } catch (error) {

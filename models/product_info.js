@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     interest_spon: DataTypes.INTEGER,
     product_picture: DataTypes.STRING,
     duration: DataTypes.INTEGER,
-    title: DataTypes.String,
+    title: DataTypes.STRING,
   }, {
     sequelize,
     timestamps:true,
