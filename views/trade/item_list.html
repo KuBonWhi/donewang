@@ -109,6 +109,7 @@
         <% } %>
         <br><br>
         <tr>
+            <td>[<a href="/trade/item_list?page=<%= --page %>">이전</a>]</td>
             <td colspan="6">
                 <%
                 for(var j = 0; j < rows.length / page_num; j++){
@@ -118,6 +119,7 @@
                 }
                 %>
             </td>
+            <td>[<a href="/trade/item_list?page=<%= ++page %>">다음</a>]</td>
         </tr>
         <br>
     </div>
