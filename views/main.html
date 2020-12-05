@@ -56,9 +56,54 @@
         a:visited { color: #555555; text-decoration: none;}
         a:hover { color: #555555; text-decoration: none;}
     </style>
+    <script language="javascript">
+        window.onload = function ()
+        {
+
+        }
+    </script>
+    <script>
+        function repeat(time, duration) {
+            get_remainTime(time, duration)
+        }
+
+        function get_remainTime(time, duration) {
+
+            let now = new Date();
+            let createdAt = new Date(time)
+            let expire_time = new Date(createdAt);
+            expire_time.setHours(createdAt.getHours() + duration);
+
+            let diff = expire_time - now;
+            let hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+            return hour + "시" + min + "분"
+        }
+
+        function get_remainTime2(data) {
+            let now = new Date();
+
+            for(let index in data) {
+                let expire_time = new Date(data[index].createdAt);
+                expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
+
+                console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
+                console.log("마감 시간 : ", expire_time.toString());
+                console.log("현재 시간 : ", now.toString());
+
+                let diff = expire_time - now;
+                var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                var sec = Math.floor((diff % (1000 * 60)) / 1000);
+                console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+                console.log("\n");
+            }
+        }
+    </script>
 </head>
 <body>
-
 <!-- Header -->
 <header id="header">
     <div class="inner">
@@ -105,7 +150,7 @@
                 <div class="6u 12u$(small)">
                     <div class="row uniform">
                         <div class="9u 12u$(small)">
-                            <input type="text" class = "keyword" name="keyword" id="keyword" value="" onkeyup="enterkey()" placeholder="판매 상품 검색" style="background-color: white;"/>
+                            <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색" style="background-color: white;"/>
                         </div>
                         <div class="3u$ 12u$(small)">
                             <input type="Button" value="검색" name="search" onclick="search()" style="background-color: white;"/>
@@ -145,7 +190,7 @@
 
                                 <h4><%=data.title%></h4>
                                 시작가격| <%=data.start_price%><br>
-                                마감기한| 12:00
+                                <div id="clock">약 <script>document.write(get_remainTime("<%=data.createdAt%>", "<%=data.duration%>"))</script> 남음!</div>
                             </a>
                         </div>
 
@@ -213,6 +258,7 @@
 <script src="assets/js/main.js"></script>
 <script>
     function search() {
+
         var keyword = $('.keyword').val();
 
         if(keyword == '' || keyword == ' ') {
@@ -227,6 +273,7 @@
     $(document).ready(function () {
         $("#keyword").keypress(function (e) {
             if(e.which == 13) {
+
                 search();
             }
         })
