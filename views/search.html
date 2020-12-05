@@ -109,17 +109,17 @@
         <% } %>
         <br><br>
         <tr>
-            <td>[<a href="/trade/item_list?page=<%= --page %>">이전</a>]</td>
+            <td>[<a href="/search?keyword=<%=keyword%>&page=<%= --page %>">이전</a>]</td>
             <td colspan="6">
                 <%
                 for(var j = 0; j < rows.length / page_num; j++){
                 %>
-                [<a href="/trade/item_list?page=<%= j + 1 %>"><%= j + 1 %></a>]
+                [<a href="/search?keyword=<%=keyword%>&page=<%= j + 1 %>"><%= j + 1 %></a>]
                 <%
                 }
                 %>
             </td>
-            <td>[<a href="/trade/item_list?page=<%= ++page %>">다음</a>]</td>
+            <td>[<a href="/search?keyword=<%=keyword%>&page=<%= ++page %>">다음</a>]</td>
         </tr>
         <br>
     </div>
@@ -135,6 +135,7 @@
 <script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
+
 
 </body>
 </html>

@@ -105,10 +105,10 @@
                 <div class="6u 12u$(small)">
                     <div class="row uniform">
                         <div class="9u 12u$(small)">
-                            <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색" style="background-color: white;"/>
+                            <input type="text" class = "keyword" name="keyword" id="keyword" value="" onkeyup="enterkey()" placeholder="판매 상품 검색" style="background-color: white;"/>
                         </div>
                         <div class="3u$ 12u$(small)">
-                            <input type="Button" value="검색" onclick="search()" style="background-color: white;"/>
+                            <input type="Button" value="검색" name="search" onclick="search()" style="background-color: white;"/>
                         </div>
 
                     </div>
@@ -221,8 +221,17 @@
         }
 
         var keyword = keyword.replaceAll(" ", "+");
-        location.href = '/search?keyword=' + keyword;
+        location.href = '/search?keyword=' + keyword + '&page=1';
     }
+
+    $(document).ready(function () {
+        $("#keyword").keypress(function (e) {
+            if(e.which == 13) {
+                search();
+            }
+        })
+    })
+
 </script>
 
 </body>

@@ -84,12 +84,16 @@ const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
 router.get('/search', async (req, res, next) => {
+
+  var page = req.query.page;
   let keyword = req.query.keyword;
+  let session = req.session;
 
   console.log(req.query)
 
   try {
     items = await models['product_info'].findAll({
+      raw: true,
       where:
           {
             title: {[Op.like]: "%" + keyword + "%"}
@@ -105,29 +109,33 @@ router.get('/search', async (req, res, next) => {
           }
     });
 
+    let item_ = null;
+    if(item_ !== undefined) {
+      item_ = items;
+    }
 
-    //       {
-    //       $or: [
-    //       {
-    //     product_describe : { [Op.like] : "%" + keyword + "%"},
-    //     title : { [Op.like] : "%" + keyword + "%" }
-    //   }
-    //   ]
-    // }
+    res.render('search.html', {
+      title: '게시판 리스트',
+      rows: item_,
+      page : page,
+      length : item_.length - 1,
+      page_num : 8,
+      pass : true,
+      keyword : keyword,
+      session : session,
+    });
+    console.log(item_.length - 1, '/', page);
 
-
-    res.send(items)
-
-    // res.render('main.html', {
-    //   productPic: product_pic,
-    //   session : session,
-    //   totSum : monoSum
-    //   //productPic : 'uploads/fig.LinkState1607002337230.png'
-    // });
   } catch (err) {
     console.error(err);
     next(err);
   }
+});
+
+router.get('/search2', function (req, res, next) {
+
+  res.render('search2.html');
+
 });
 
 
