@@ -5,6 +5,14 @@
     <title>도 네 왕</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
+
+    <script>
+        function finish_trade_check() {
+            alert('입찰 되었습니다!'); 
+            return true;
+        }
+    </script>
+
 </head>
 <body class="subpage">
 
@@ -31,10 +39,15 @@
 <div class="inner">
     <br>
     <strong style = "font-size: 20px;"> 제품 상세 보기 </strong> <hr>
-    <form name=f1 method="post" action="direct_done_proc.html" onSubmit="return functionK();">
+    <form name=f1 method="post" action="trade_finish" onSubmit="return finish_trade_check();">
         <div class="row uniform">
             <% var product_ = product_info; 
+            var bidHist = bid_hist;
             var seller = seller_info;%>
+            <input type="hidden" name="product_id" value="<%=product_.product_id%>">
+            <input type="hidden" name="member_id" value="<%=seller.id%>">
+            <input type="hidden" name="order" value="<%=bidHist.order%>">
+            <input type="hidden" name="bid_price" value="<%=bidHist.bid_price%>">
             <div class="6u 12u$(xsmall)" align="center">
                 <img src="<%=product_.product_picture%>" style="width: 600px; height: 600px">
             </div>
@@ -50,11 +63,11 @@
                     </tr>
                     <tr align="left">
                         <td>현재 가격</td>
-                        <td>&#8361;10,000</td>
+                        <td>&#8361;<%=bidHist.bid_price%></td>
                     </tr>
                     <tr align="left">
                         <td>후원 비율</td>
-                        <td><%=product_.interst_spon%></td>
+                        <td><%=product_.interest_spon%>%</td>
                     </tr>
                     <tr align="left">
                         <td>남은 시간</td>

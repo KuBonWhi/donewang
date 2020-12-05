@@ -15,8 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   };
   bid_history.init({
     product_id: DataTypes.INTEGER,
-    member_id: DataTypes.STRING,
-    order: DataTypes.INTEGER,
+    member_id: {
+      primaryKey: true,
+      type : DataTypes.STRING,
+    },
+    order: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
     bid_time:{
       primaryKey: true,
       type: 'DATETIME',
