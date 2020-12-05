@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <title>도 네 왕</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
-<body>
+
+<body class="subpage">
+
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
+        <nav id="nav">
+            <a href="../trade/upload_item" role="tab">판매</a>
+            <a href="../trade/item_list">구매</a>
+            <a href="../trade/direct_done">바로 후원 </a>
+            <a href="../notice/notice">게시판</a>
+            <% if(session.user) { %>
+            <a href="../users/logout">로그아웃</a>
+            <% } else { %>
+            <a href="../users/login">로그인</a>
+            <a href="../users/register">회원가입</a>
+            <% } %>
+        </nav>
+        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+    </div>
+</header>
+<div class="inner">
+    <br><br>
+    <strong style = "font-size: 20px;">게시글 상세보기</strong>
+    <hr>
+    <!-- @@@@@ title의 value에, content의 placeholder 에다가 디비에서 가져온 값 넣으면 됨! -->
+    <div class="row uniform">
+        <div class="6u 12u$(small)">
+            <input disabled type="text" class="ti" name="title" id="title" value="글 제목: " />
+        </div>
+        <div class="6u$ 12u$(small)">
+
+        </div>
+    </div>
+    <div class="field">
+        <br>
+        <textarea disabled name="content" id="내용" rows="15" placeholder="내용"></textarea>
+    </div>
+    <br><br>
+    <div class="row uniform">
+        <div class="12u$" align="center">
+            <a href="../notice/notice"> <input type="button" value="목록 보기" /> </a>
+        </div>
+    </div>
+    <br><br>
+
+</div>
+
+<!-- Footer -->
+<footer id = footer>
+    DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
+</footer>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/skel.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.category').change(function () {
+            let cat = $('.category').val()
+            $('.ti').val(cat + " ")
+        })
+    })
+</script>
 
 </body>
 </html>
