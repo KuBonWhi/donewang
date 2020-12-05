@@ -96,11 +96,13 @@ router.post('/register',async (req,res,next)=>{
       id: body.user_id,
       password: body.user_pw,
       address: body.zip_code + "/" + body.addr1 + "/" + body.addr2,
-      rank: null,
+      rank: 0,
       phone_num: body.user_phone_num,
       interest_spon: null,
-      private_account: null,
-      amount_donate: null
+      private_account: body.user_account,
+      amount_donate: 0,
+      name : body.user_name,
+      nickname : body.user_nickname,
       //salt : salt
     });
     res.redirect('/');
