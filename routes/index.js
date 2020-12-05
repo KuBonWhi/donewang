@@ -3,6 +3,27 @@ var router = express.Router();
 
 const models = require('../models');
 
+function get_remainTime(data) {
+  let now = new Date();
+
+  for(let index in data) {
+    let expire_time = new Date(data[index].createdAt);
+    expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
+
+    console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
+    console.log("마감 시간 : ", expire_time.toString());
+    console.log("현재 시간 : ", now.toString());
+
+    let diff = expire_time - now;
+    var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+    console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+    console.log("\n");
+  }
+}
+
 router.get('/', async (req, res, next) => {
   try {
     let session = req.session;
@@ -13,9 +34,7 @@ router.get('/', async (req, res, next) => {
       //attributes:['product_picture'],
       raw: true
     });
-    console.log('account: ', account[0]);
     if(account[0] == undefined){
-      console.log('create publicinfo');
       await models['public_account'].create({
         depositor_id: 0,
         donation: 9509030,
@@ -28,7 +47,6 @@ router.get('/', async (req, res, next) => {
       });
     }
     totalSum = account[0]['total_sum'];
-    console.log('totalsum : ',totalSum, ', type:',typeof(totalSum));
 
     // ','콤마찍기
     var totalMoney=totalSum; 
@@ -38,7 +56,6 @@ router.get('/', async (req, res, next) => {
     {
       i++;
       let temp = totalMoney % 10;
-      console.log('totmoney:',totalMoney);
       totalMoney = Math.floor(totalMoney / 10);
       if(totalMoney == 0 && temp == 0)
         break;
@@ -51,7 +68,6 @@ router.get('/', async (req, res, next) => {
       }
     }
     var monoSum = tempstr;
-    console.log(monoSum);
 
     //제품사진 가져오기
     const product = await models['product_info'].findAll({
@@ -59,11 +75,8 @@ router.get('/', async (req, res, next) => {
         //attributes:['product_picture'],
         raw: true
     });
-    console.log('product: ', product.length);
     let product_pic = null;
-    console.log('ppic: ',product_pic);
     if(product[0] !== undefined){
-        console.log('if문 안');
         product_pic = product;
     }
 
