@@ -95,10 +95,41 @@ router.get('/upload_item', function(req, res, next) {
     res.render('trade/upload_item.html' , { session : session});
 });
 
-router.get('/item', function(req, res, next) {
+router.get('/item', async (req, res, next) =>{
     let session = req.session;
+    const query = req.query.product_id;
+    let product_info;
+    let seller_info;
+    console.log('item query: ', query);
+    try {
+        product_info = await model['product_info'].findOne({
+            where : {
+                product_id : query
+            },
+            raw: true,
+        });
+        
+        let sellerId = product_info['seller_id'];
 
-    res.render('trade/item.html', { session : session });
+        console.log('product_info : ', product_info);
+        console.log('seller_id : ', sellerId);
+        
+        seller_info = await model['member_info'].findOne({
+            where : {
+                id : sellerId,
+            },
+            raw: true,
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+    console.log('seller_info : ', seller_info);
+    res.render('trade/item.html', { 
+        product_info : product_info, 
+        seller_info : seller_info,
+        session : session 
+    });
 });
 
 router.get('/item_list', async(req, res, next) =>{

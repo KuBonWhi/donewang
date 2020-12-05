@@ -33,18 +33,20 @@
     <strong style = "font-size: 20px;"> 제품 상세 보기 </strong> <hr>
     <form name=f1 method="post" action="direct_done_proc.html" onSubmit="return functionK();">
         <div class="row uniform">
+            <% var product_ = product_info; 
+            var seller = seller_info;%>
             <div class="6u 12u$(xsmall)" align="center">
-                <img src="../images/pic01.jpg" style="width: 600px; height: 600px">
+                <img src="<%=product_.product_picture%>" style="width: 600px; height: 600px">
             </div>
             <div class="6u 12u$(xsmall)" align="center">
                 <table border="1" style="width: 600px; height: 600px">
                     <tr align="left">
                         <td>제목</td>
-                        <td>카메라</td>
+                        <td><%=product_.title%></td>
                     </tr>
                     <tr align="left">
                         <td>경매 시작 가격</td>
-                        <td>&#8361;1,000</td>
+                        <td>&#8361;<%=product_.start_price%></td>
                     </tr>
                     <tr align="left">
                         <td>현재 가격</td>
@@ -52,7 +54,7 @@
                     </tr>
                     <tr align="left">
                         <td>후원 비율</td>
-                        <td>20%</td>
+                        <td><%=product_.interst_spon%></td>
                     </tr>
                     <tr align="left">
                         <td>남은 시간</td>
@@ -60,11 +62,11 @@
                     </tr>
                     <tr align="left">
                         <td>판매자</td>
-                        <td>정이 공주</td>
+                        <td><%=seller.nickname%></td>
                     </tr>
                     <tr align="left">
                         <td>계급</td>
-                        <td>신</td>
+                        <td><%=seller.rank%></td>
                     </tr>
                     <tr align="left" bgcolor="#f0f8ff">
                         <td>총 후원자</td>

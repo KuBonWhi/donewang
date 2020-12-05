@@ -28,6 +28,12 @@ module.exports = {
       amount_donate: {
         type: Sequelize.INTEGER
       },
+      name : {
+        type: Sequelize.STRING
+      },
+      nickname : {
+        type: Sequelize.STRING
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

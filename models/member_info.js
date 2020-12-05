@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     phone_num: DataTypes.STRING,
     interest_spon: DataTypes.INTEGER,
     private_account: DataTypes.STRING,
-    amount_donate: DataTypes.INTEGER
+    amount_donate: DataTypes.INTEGER,
+    name : DataTypes.STRING,
+    nickname: DataTypes.STRING,
   }, {
     sequelize,
     timestamps:false,
