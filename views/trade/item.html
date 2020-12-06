@@ -8,8 +8,12 @@
 
     <script>
         function finish_trade_check() {
-            alert('입찰 되었습니다!'); 
-            return true;
+            if(confirm("입찰 하시겠습니까?") == true){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     </script>
 
@@ -45,9 +49,10 @@
         <div class="row uniform">
             <% var product_ = product_info; 
             var bidHist = bid_hist;
-            var seller = seller_info;%>
+            var seller = seller_info;
+            var lastbuyer = lastbuyer_nickname%>
             <input type="hidden" name="product_id" value="<%=product_.product_id%>">
-            <input type="hidden" name="member_id" value="<%=seller.id%>">
+            <input type="hidden" name="seller_id" value="<%=seller.id%>">
             <input type="hidden" name="order" value="<%=bidHist.order%>">
             <input type="hidden" name="bid_price" value="<%=bidHist.bid_price%>">
             <div class="6u 12u$(xsmall)" align="center">
@@ -81,7 +86,7 @@
                     </tr>
                     <tr align="left">
                         <td>현재 입찰자</td>
-                        <td><%=seller.rank%></td>
+                        <td><%=lastbuyer%></td>
                     </tr>
                     <tr align="left" bgcolor="#f0f8ff">
                         <td>총 후원자</td>

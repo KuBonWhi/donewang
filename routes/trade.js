@@ -143,7 +143,8 @@ router.get('/item', async (req, res, next) =>{
     let seller_info;
     let bid_hist;
     let last_bid;
-    let last_bid2;
+    let last_bid2={};
+    let lastbuyer_nickname;
     console.log('item query: ', query_productID);
     try {
         product_info = await model['product_info'].findOne({
@@ -191,26 +192,22 @@ router.get('/item', async (req, res, next) =>{
         //     raw: true,
         // });
         if(last_bid[0] == undefined){
-            let startprice = product_info['start_price'];
-            console.log('bidhist empty, create bidhist');
-            //let cur_time = moment.defaultFormat();
-            try{
-            bid_hist = await model['bid_history'].create({
-                product_id : productId,
-                member_id : sellerId,
-                bid_price : startprice,
-                order : 1,
-            });
-            }catch(error){
-                console.error(error);
-                next(error);
-            }
-            bid_hist = JSON.stringify(bid_hist);
-            last_bid2 = JSON.parse(bid_hist);
-            console.log('bid_@@@@@@@@:', bid_hist);
+            last_bid2.product_id = productId;
+            last_bid2.member_id = '';
+            last_bid2.bid_price = product_info['start_price'];
+            last_bid2.order = 0;
+            lastbuyer_nickname='미입찰';
         }
         else{
             last_bid2 = last_bid[0];
+            let lastbuyerInfo = await model['member_info'].findOne({
+                where : {
+                    id : last_bid[0].member_id,
+                },
+                raw : true,
+            })
+            console.log('lastbuyer: ', lastbuyerInfo.nickname);
+            lastbuyer_nickname= lastbuyerInfo.nickname;
         }
         console.log('bid_hist : ',bid_hist);
         console.log('after last_bid2 : \n',last_bid2);
@@ -226,6 +223,7 @@ router.get('/item', async (req, res, next) =>{
         product_info : product_info, 
         seller_info : seller_info,
         bid_hist: last_bid2,
+        lastbuyer_nickname:lastbuyer_nickname,
         session : session 
     });
 });
@@ -253,6 +251,13 @@ router.post('/trade_finish', async (req,res,next)=>{
     }
     console.log('body : \n', body);
 
+    if(body.seller_id == session.user.id){
+        session.sameUser = true;
+        //원호야 여기부분에서 유저아이디(현재 로그인중인 유저)랑 body.seller_id(판매자)
+        //둘이 같으면 alert띄워줘@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+        console.log('자신이 올린 상품은 입찰할 수 없습니다.@@@@@@@@@@@@@2');
+        res.redirect('/');
+    }else{
     //입찰기록
     try {
         let price = Math.floor(body.bid_price) + 1000;
@@ -269,6 +274,7 @@ router.post('/trade_finish', async (req,res,next)=>{
         console.error(error);
         next(error);
       }
+    }
 });
 
 module.exports = router;
