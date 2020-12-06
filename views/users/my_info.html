@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
+<script>
+
+</script>
 <body class="subpage">
 
 <!-- Header -->
@@ -17,20 +20,306 @@
             <a href="../trade/item_list">구매</a>
             <a href="../trade/direct_done">바로 후원 </a>
             <a href="../notice/notice">게시판</a>
-            <% if(session.user) { %>
-            <a href="../users/logout">로그아웃</a>
-            <% } else { %>
             <a href="../users/login">로그인</a>
             <a href="../users/register">회원가입</a>
-            <% } %>
         </nav>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>
 </header>
 
-<div class="inner">
-    page
-</div>
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner" align="center">
+
+        <div class="6u 12u$(medium)">
+            <!-- Form -->
+            <h3> <b> 내 정보 </b> </h3>
+
+            <form name=f action="register" method="post" onSubmit="return functionK();" >
+                <div class="row uniform">
+                    <div class="12u$">
+                        <input disabled type="text" class="userid_input" name="user_id" id="user_id" value="" placeholder="아이디" />
+                    </div>
+
+                    <div class="7u 12u$(small)">
+                        <input type="text" class="nickname_input" name="user_nickname" id="nickname" value="" placeholder="닉네임" check_result="fail" required />
+                    </div>
+                    <div class="3u$ 12u$(small)">
+                        <input type="button" class="nickname_overlap_button" onclick="" value="중복 확인">
+                        <span id="nickname_style_sucess" class="button disabled" style="display: none">중복 확인</span>
+                    </div>
+                    <div class="12u$">
+                        <input type="password" class="passwd_input" name="user_pw" id="user_pw" value="" placeholder="새 비밀번호" check_result="fail" oninput="checkpwd()" required/>
+                    </div>
+                    <div class="12u$">
+                        <input type="password" class="passwd_confirm_input" name="pw_confirm" id="pw_confirm" value="" placeholder="새 비밀번호 확인" check_result="fail" oninput="checkpwd()" required/>
+                    </div>
+                    <div class="12u$">
+                        <input type="text" class="name_input" name="user_name" id="user_name" value="" placeholder="이름" check_result="fail" required/>
+                    </div>
+                    <div class="12u$">
+                        <input type="text" class="phone_num_input" name="user_phone_num" id="user_phone_num" value="" placeholder="전화번호" check_result="fail" required/>
+                    </div>
+
+                    <div class="7u 12u$(small)">
+                        <input type="text" class="zipcode_input" id="sample4_postcode" placeholder="우편번호" name="zip_code" check_result="fail" required/>
+                    </div>
+                    <div class="3u$ 12u$(small)">
+                        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                    </div>
+                    <div class="12u$">
+                        <input type="text" class="addr1_input" id="sample4_roadAddress" placeholder="도로명주소" name="addr1" check_result="fail" required/>
+                    </div>
+                    <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소" >
+                    <span id="guide" style="color: #999; display: none"></span>
+                    <div class="12u$">
+                        <input type="text" class="addr2_input" id="sample4_detailAddress" placeholder="상세주소" name="addr2" check_result="fail" required/>
+                    </div>
+                    <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+                    <input type="hidden" id="sample4_engAddress" placeholder="영문주소">
+
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="수정하기" /></li>
+                            <li><input type="reset" value="초기화" class="alt" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.userid_input').change(function () {
+                        document.getElementById('user_id').style.borderColor="#ff0202"
+                        $('#id_check_sucess').hide();
+                        $('.id_overlap_button').show();
+                        $('.userid_input').attr("check_result", "fail");
+                        document.getElementById('id_style_sucess').style.display="none"
+                    })
+
+                    $('.nickname_input').change(function () {
+                        document.getElementById('nickname').style.borderColor="#ff0202"
+                        $('#nickname_check_sucess').hide();
+                        $('.nickname_overlap_button').show();
+                        $('.nickname_input').attr("check_result", "fail");
+                        document.getElementById('nickname_style_sucess').style.display="none"
+                    })
+
+                    $(".id_overlap_button").on("click", function () {
+                        var id = $('.userid_input').val()
+
+                        if (id == '') {
+                            alert('아이디를 입력해주세요.')
+                            return;
+                        }
+                        $.ajax({
+                            url: 'dup_check',
+                            dataType : "JSON",
+                            type: "POST",
+                            data: { 'id': id }
+                        })
+                            .done(function (json) {
+                                if(json.data == 'fail') {
+                                    alert("이미 존재하는 아이디 입니다.")
+                                    $('.userid_input').focus();
+                                    return;
+                                }
+                                else {
+                                    alert("사용가능한 아이디입니다.")
+                                    $('.userid_input').attr("check_result", "pass")
+                                    document.getElementById('user_id').style.borderColor="#8fc5ef"
+                                    $('.id_overlap_button').hide()
+                                    document.getElementById('id_style_sucess').style.display="block"
+                                }
+                            })
+                            .fail(function (xhr, status, errorThorwn) {
+                                alert("Ajax failed")
+                            })
+                    })
+
+                    $(".nickname_overlap_button").on("click", function () {
+                        var nickname = $('.nickname_input').val()
+
+                        if (nickname == '') {
+                            alert('닉네임을 입력해주세요.')
+                            return;
+                        }
+                        else {
+                            alert("사용가능한 닉네임입니다.")
+                            $('.nickname_input').attr("check_result", "pass")
+                            document.getElementById('nickname').style.borderColor="#8fc5ef"
+                            $('.nickname_overlap_button').hide()
+                            document.getElementById('nickname_style_sucess').style.display="block"
+                        }
+                        // $.ajax({
+                        //     url: 'dup_check',
+                        //     dataType : "JSON",
+                        //     type: "POST",
+                        //     data: { 'nickname': nickname }
+                        // })
+                        //     .done(function (json) {
+                        //         if(json.data == 'fail') {
+                        //             alert("이미 존재하는 닉네임 입니다.")
+                        //             $('.nickname_input').focus();
+                        //             return;
+                        //         }
+                        //         else {
+                        //             alert("사용가능한 아이디입니다.")
+                        //             $('.nickname_input').attr("check_result", "pass")
+                        //             document.getElementById('nickname').style.borderColor="#8fc5ef"
+                        //             $('.id_overlap_button').hide()
+                        //             document.getElementById('nickname_style_sucess').style.display="block"
+                        //         }
+                        //     })
+                        //     .fail(function (xhr, status, errorThorwn) {
+                        //         alert("Ajax failed")
+                        //     })
+                    })
+
+                    $('.passwd_input').change(function () {
+                        //document.getElementById('user_pw').style.borderColor="#ff0202"
+                        document.getElementById('user_pw').style.borderColor="#8fc5ef"
+                        $('.passwd_input').attr("check_result", "pass")
+                    })
+
+                    $('.name_input').change(function () {
+                        document.getElementById('user_name').style.borderColor="#8fc5ef"
+                        $('.name_input').attr("check_result", "pass")
+                    })
+
+                    $('.phone_num_input').change(function () {
+                        document.getElementById('user_phone_num').style.borderColor="#8fc5ef"
+                        $('.phone_num_input').attr("check_result", "pass")
+                    })
+
+                    $('.zipcode_input').change(function () {
+                        document.getElementById('sample4_postcode').style.borderColor="#8fc5ef"
+                        $('.zipcode_input').attr("check_result", "pass")
+                    })
+
+                    $('.addr1_input').change(function () {
+                        document.getElementById('sample4_roadAddress').style.borderColor="#8fc5ef"
+                        $('.addr1_input').attr("check_result", "pass")
+                    })
+
+                    $('.addr2_input').change(function () {
+                        document.getElementById('sample4_detailAddress').style.borderColor="#8fc5ef"
+                        $('.addr2_input').attr("check_result", "pass")
+                    })
+                })
+
+                function checkpwd() {
+                    var pw1 = $('.passwd_input').val();
+                    var pw2 = $('.passwd_confirm_input').val();
+
+                    if(pw1 == pw2) {
+                        // document.getElementById('user_pw').style.borderColor="#8fc5ef"
+                        document.getElementById('pw_confirm').style.borderColor="#8fc5ef"
+                        $('.passwd_confirm_input').attr("check_result", "pass");
+                    }
+                    else {
+                        document.getElementById('pw_confirm').style.borderColor="#ff0202"
+                    }
+
+                }
+
+                //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+                function sample4_execDaumPostcode() {
+                    new daum.Postcode(
+                        {
+                            oncomplete : function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                var extraRoadAddr = ''; // 참고 항목 변수
+
+                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                    extraRoadAddr += data.bname;
+                                }
+                                // 건물명이 있고, 공동주택일 경우 추가한다.
+                                if (data.buildingName !== '' && data.apartment === 'Y') {
+                                    extraRoadAddr += (extraRoadAddr !== '' ? ', '
+                                        + data.buildingName : data.buildingName);
+                                }
+                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                if (extraRoadAddr !== '') {
+                                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                }
+
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('sample4_postcode').value = data.zonecode;
+                                document.getElementById("sample4_roadAddress").value = roadAddr;
+                                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+                                document.getElementById("sample4_engAddress").value = data.addressEnglish;
+
+                                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                if (roadAddr !== '') {
+                                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                                } else {
+                                    document.getElementById("sample4_extraAddress").value = '';
+                                }
+
+                                var guideTextBox = document.getElementById("guide");
+                                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                                if (data.autoRoadAddress) {
+                                    var expRoadAddr = data.autoRoadAddress
+                                        + extraRoadAddr;
+                                    guideTextBox.innerHTML = '(예상 도로명 주소 : '
+                                        + expRoadAddr + ')';
+                                    guideTextBox.style.display = 'block';
+
+                                } else if (data.autoJibunAddress) {
+                                    var expJibunAddr = data.autoJibunAddress;
+                                    guideTextBox.innerHTML = '(예상 지번 주소 : '
+                                        + expJibunAddr + ')';
+                                    guideTextBox.style.display = 'block';
+                                } else {
+                                    guideTextBox.innerHTML = '';
+                                    guideTextBox.style.display = 'none';
+                                }
+                            }
+                        }).open();
+                }
+
+                function functionK() {
+                    var chk1 = f.pro1.checked;
+                    var chk2 = f.pro2.checked;
+
+                    if ($('.userid_input').attr("check_result") == "fail"){
+                        alert("아이디 중복체크를 해주시기 바랍니다.");
+                        $('.userid_input').focus();
+                        return false;
+                    }
+                    if ($('.usernickname_input').attr("check_result") == "fail"){
+                        alert("닉네임 중복체크를 해주시기 바랍니다.");
+                        $('.usernickname_input').focus();
+                        return false;
+                    }
+
+                    if(!chk1) {
+                        alert("개인정보 수집 이용 약관을 동의해주세요.");
+                        return false;
+                    } else if(!chk2) {
+                        alert("휴대폰 본인 확인 서비스 이용 약관을 동의해주세요.");
+                        return false;
+                    }
+                }
+            </script>
+
+            <hr />
+
+        </div>
+    </div>
+
+    </div>
+
+</section>
 
 <!-- Footer -->
 <footer id = footer>
