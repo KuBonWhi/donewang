@@ -56,21 +56,22 @@
             <label for="title">판매 등록한 제품</label>
             <table style="width: 100%;">
                 <tr align="center">
-                    <td> 제목 </td>
-                    <td> 내용 </td>
-                    <td> 시작 가격</td>
-                    <td> 후원 비율</td>
-                    <!-- <td> 사진 </td> -->
+
+                    <td style="width: 35%"> 제목 </td>
+                    <td style="width: 35%"> 내용 </td>
+                    <td style="width: 15%"> 시작 가격</td>
+                    <td style="width: 15%"> 후원 비율</td>
+
                 </tr>
                 <%  if(mysell_length >2){
                     for(var i=0; i<3; i++) {
                 %>
                     <tr align="center">
+
                         <td><%=mysell[i].title%></td>
                         <td><%=mysell[i].product_describe%></td>
                         <td><%=mysell[i].start_price%></td>
                         <td><%=mysell[i].interest_spon%></td>
-                        <!-- <td>11111111111111</td> -->
                     </tr>
                 <% }} else if(mysell_length>0){
                     for(var p=0; p < mysell_length; p++){%>
@@ -79,7 +80,6 @@
                         <td><%=mysell[i].product_describe%></td>
                         <td><%=mysell[i].start_price%></td>
                         <td><%=mysell[i].interest_spon%></td>
-                        <!-- <td>11111111111111</td> -->
                     </tr>
                 <%}} else{%>
                     <tr align="center">
@@ -87,7 +87,7 @@
                         <td> ---- </td>
                         <td> ---- </td>
                         <td> ---- </td>
-                        <!-- <td>11111111111111</td> -->
+
                     </tr>
                 <%}%>
             </table>
@@ -102,21 +102,22 @@
             <label for="title">입찰 참여한 제품</label>
             <table style="width: 100%;">
                 <tr align="center">
-                    <td> 제목 </td>
-                    <td> 내용 </td>
-                    <td> 입찰 가격</td>
-                    <td> 후원 비율</td>
-                    <!-- <td> 사진 </td> -->
+
+                    <td style="width: 35%"> 제목 </td>
+                    <td style="width: 35%"> 내용 </td>
+                    <td style="width: 15%"> 시작 가격</td>
+                    <td style="width: 15%"> 후원 비율</td>
+
                 </tr>
                 <% if(mybuy_length >2){
                 for(var i=0; i<3; i++) {
                 %>
                 <tr align="center">
+
                     <td><%=mybuy[i].title%></td>
                     <td><%=mybuy[i].product_describe%></td>
                     <td><%=mybuy[i].bid_price%></td>
                     <td><%=mybuy[i].interest_spon%></td>
-                    <!-- <td>1</td> -->
                 </tr>
                 <% }} else if(mybuy_length >0){
                     for(var p=0; p < mybuy_length; p++){%>
@@ -125,7 +126,6 @@
                     <td><%=mybuy[i].product_describe%></td>
                     <td><%=mybuy[i].bid_price%></td>
                     <td><%=mybuy[i].interest_spon%></td>
-                    <!-- <td>1</td> -->
                 </tr>
                 <%}}else{%>
                 <tr align="center">
@@ -133,7 +133,8 @@
                     <td> ---- </td>
                     <td> ---- </td>
                     <td> ---- </td>
-                    <!-- <td>1</td> -->
+                    
+
                 </tr>
                 <%}%>
             </table>
