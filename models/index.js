@@ -68,7 +68,7 @@ db.get_remainTime = function get_remainTime(data) {
       var sec = Math.floor((diff % (1000 * 60)) / 1000);
 
       data[index].remain_time = hour+'시간'+min+'분 남음!!'
-
+      data[index].int_remain_time = hour*60 + min;
       console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
       console.log("\n");
     }

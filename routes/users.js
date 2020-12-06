@@ -16,10 +16,91 @@ router.get('/confirm_myInfo', function(req, res, next) {
   res.render("users/confirm_myInfo.html" , { session : session});
 });
 
-router.get('/my_tradeInfo', function(req, res, next) {
+router.get('/my_tradeInfo', async function(req, res, next) {
   let session = req.session;
+  if(session.user === undefined)
+    {   
+        session.loginAlert = true;
+        res.redirect("/users/login")
+    }
+  //let userId = session.user.id;
+  let my_info = await model['member_info'].findOne({
+    where: {
+      id : session.user.id,
+    },
+    raw:true,
+  });
+  let my_sell = await model['product_info'].findAll({
+    where: {
+      seller_id : session.user.id,
+    },
+    raw:true,
+  });
+  console.log('mysell :\n',my_sell);
+  if(my_sell[0] == undefined){
+    console.log('mysell[0] undefined');
+    my_sell = null;
+  }
+  
+  // let my_buy_ = await model['bid_history'].findAll({
+  //   where: {
+  //     member_id : session.user.id,
+  //   },
+  //   raw:true,
+  // });
+  // if(my_buy_[0] == undefined){
+  //   my_buy_ = null;
+  // }
 
-  res.render("users/my_tradeInfo.html" , { session : session});
+  let buy_hist = await model['bid_history'].findAll({
+    where: {
+      member_id : session.user.id,
+    },
+    raw:true,
+  });
+  console.log('buy_hist:\n',buy_hist);
+  if(buy_hist[0] == undefined){
+    console.log('mybuy[0] undefined');
+    buy_hist = null;
+  }
+  //console.log('buy len:',buy_hist.length);
+  let my_buy_length;
+  let my_sell_length;
+  let my_buy = [];
+  if(buy_hist){
+    console.log('!buy_hist');
+    for(let idx in buy_hist){
+      let buy_product_info = await model['product_info'].findAll({
+        where: {
+          product_id : buy_hist[idx].product_id,
+        },
+        raw:true,
+      });
+      my_buy[idx] = buy_product_info[0];
+      my_buy[idx].bid_price = buy_hist[idx].bid_price;
+    }
+    my_buy_length = my_buy.length;
+    my_sell_length = my_sell.length;
+  }
+  else{
+    my_buy = null;
+    my_buy_length = 0;
+    my_sell_length = 0;
+  }
+  //console.log('buy len : ', my_buy_length);
+  //console.log('sell len : ', my_sell_length);
+
+  //console.log(my_info);
+  //console.log('mysell: ',my_sell);
+  //console.log('mybuy: ',my_buy);
+  res.render("users/my_tradeInfo.html" , { 
+    my_info : my_info,
+    my_sell : my_sell,
+    my_buy : my_buy,
+    my_sell_length : my_sell_length,
+    my_buy_length : my_buy_length,
+    session : session,
+  });
 });
 
 router.get('/login', function(req, res, next) {
