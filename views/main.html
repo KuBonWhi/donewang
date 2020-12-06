@@ -190,7 +190,7 @@
                                 </div>
 
                                 <h4><%=data.title%></h4>
-                                시작가격| <%=data.start_price%> 원<br>
+                                시작가격| <%=data.start_price.toLocaleString()%> 원<br>
                                 <%=data.remain_time%>
                             </a>
                         </div>
@@ -226,13 +226,15 @@
                         for(j=0; j<4; j++) { 
                             var data_ = product_late[i*4+j];%>
                         <div class="3u 12u$(small)" align="center">
-                            <div class="image round">
-                                <img src="<%= data_.product_picture %>" alt="Pic 01" style="width: 170px; height: 170px;" />
-                            </div>
+                            <a href="../trade/item?product_id=<%=data_.product_id%>">
+                                <div class="image round">
+                                    <img src="<%= data_.product_picture %>" alt="Pic 01" style="width: 170px; height: 170px;" />
+                                </div>
 
-                            <h4><%=data_.title%></h4>
-                            시작가격| <%=data_.start_price%> 원<br>
-                            <%=data_.remain_time%>
+                                <h4><%=data_.title%></h4>
+                                시작가격| <%=data_.start_price.toLocaleString()%> 원<br>
+                                <%=data_.remain_time%>
+                            </a>
                         </div>
                         <% } %>
                     </div>

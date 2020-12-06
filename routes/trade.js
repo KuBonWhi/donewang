@@ -145,6 +145,7 @@ router.get('/item', async (req, res, next) =>{
     let last_bid;
     let last_bid2={};
     let lastbuyer_nickname;
+
     console.log('item query: ', query_productID);
     try {
         product_info = await model['product_info'].findOne({
@@ -173,7 +174,8 @@ router.get('/item', async (req, res, next) =>{
         //     },
         //     raw: true,
         // });
-        let sqlQuery = `select * from bid_histories bh where bh.product_id = ${productId} having bh.order= (select max(bid_histories.order) from bid_histories);`;
+        // let sqlQuery = `select * from bid_histories bh where bh.product_id = ${productId} having bh.order= (select max(bid_histories.order) from bid_histories);`;
+        let sqlQuery = `select * from bid_histories bh where bh.product_id = ${productId} order by bh.order desc limit 1;`;
         //console.log('sqlquery: ', sqlQuery.toString());
         //"Select * from bid_histories where bid_histories.product_id = 1 having bid_histories.order= (select max(bid_histories.order) from bid_histories);"
         last_bid = await model.sequelize.query(sqlQuery,{
@@ -228,7 +230,7 @@ router.get('/item', async (req, res, next) =>{
     });
 });
 
-router.get('/direct_done', function(req, res, next) {
+router.get('/direct_done', async (req, res, next) => {
     let session = req.session;
 
     if(session.user === undefined)
@@ -237,7 +239,34 @@ router.get('/direct_done', function(req, res, next) {
         res.redirect("/users/login")
     }
 
-    res.render('trade/direct_done.html', { session : session});
+    try {
+        let user = await model['member_info'].findOne({
+            where : {
+                id : session.user.id
+            },
+        });
+
+        res.render('trade/direct_done.html', { session : session, user : user});
+
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+router.post('/direct_done', async (req, res, next) => {
+    let session = req.session;
+    let body = req.body;
+
+    let result = await model['member_info'].increment({
+       amount_donate : +body.done_account
+    }, {
+        where : {
+            id : session.user.id
+        }
+    });
+
+    res.redirect('/users/my_tradeInfo');
 });
 
 //입찰하기 누른다음

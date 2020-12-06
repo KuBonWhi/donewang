@@ -45,7 +45,7 @@
             <label for="title">나의 후원 금액</label>
             <div class="6u 12u$">
                 <div class="box">
-                    <h3 align="center">&#8361;<%=myinfo.amount_donate%></h3>
+                    <h3 align="center">&#8361;<%=myinfo.amount_donate.toLocaleString()%></h3>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
 
                         <td><%=mysell[i].title%></td>
                         <td><%=mysell[i].product_describe%></td>
-                        <td><%=mysell[i].start_price%></td>
+                        <td><%=mysell[i].start_price.toLocaleString()%></td>
                         <td><%=mysell[i].interest_spon%></td>
                     </tr>
                 <% }} else if(mysell_length>0){
@@ -78,7 +78,7 @@
                     <tr align="center">
                         <td><%=mysell[i].title%></td>
                         <td><%=mysell[i].product_describe%></td>
-                        <td><%=mysell[i].start_price%></td>
+                        <td><%=mysell[i].start_price.toLocaleString()%></td>
                         <td><%=mysell[i].interest_spon%></td>
                     </tr>
                 <%}} else{%>
@@ -93,7 +93,7 @@
             </table>
         </div>
         <div class="12u$" align="right">
-            <a href="">[더보기]</a>
+            <a href="/search?id=<%=session.user.id%>&page=1">[더보기]</a>
         </div>
     </div>
     <hr>
@@ -116,7 +116,7 @@
 
                     <td><%=mybuy[i].title%></td>
                     <td><%=mybuy[i].product_describe%></td>
-                    <td><%=mybuy[i].bid_price%></td>
+                    <td><%=mybuy[i].bid_price.toLocaleString()%></td>
                     <td><%=mybuy[i].interest_spon%></td>
                 </tr>
                 <% }} else if(mybuy_length >0){
@@ -124,7 +124,7 @@
                 <tr align="center">
                     <td><%=mybuy[i].title%></td>
                     <td><%=mybuy[i].product_describe%></td>
-                    <td><%=mybuy[i].bid_price%></td>
+                    <td><%=mybuy[i].bid_price.toLocaleString()%></td>
                     <td><%=mybuy[i].interest_spon%></td>
                 </tr>
                 <%}}else{%>
