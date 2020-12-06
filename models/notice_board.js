@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {
     sequelize,
-    timestamps:false,
+    timestamps:true,
     underscored:false,
     createdAt:true,
     charset:'utf8',
