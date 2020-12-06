@@ -10,6 +10,18 @@ router.get('/', function(req, res, next) {
   res.render("users/my_info.html" , { session : session});
 });
 
+router.get('/confirm_myInfo', function(req, res, next) {
+  let session = req.session;
+
+  res.render("users/confirm_myInfo.html" , { session : session});
+});
+
+router.get('/my_tradeInfo', function(req, res, next) {
+  let session = req.session;
+
+  res.render("users/my_tradeInfo.html" , { session : session});
+});
+
 router.get('/login', function(req, res, next) {
   let session = req.session;
 
