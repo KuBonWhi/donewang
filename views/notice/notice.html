@@ -56,17 +56,17 @@
     <div class="row uniform">
         <div class="12u$" align="center">
             <table style="width: 100%;">
-                <tr>
-                    <td> 번호</td>
-                    <td> 제목 </td>
-                    <td> 작성자 </td>
-                    <td> 등록일 </td>
+                <tr align="center">
+                    <td style="width: 15%"> 번호</td>
+                    <td style="width: 40%"> 제목 </td>
+                    <td style="width: 20%"> 작성자 </td>
+                    <td style="width: 25%"> 등록일 </td>
                 </tr>
                 <%  var notice = notice_info;
                     for(var i=0; i<= length; i++) {
                 %>
 
-                <tr style="cursor:pointer" onclick="location.href='../notice/notice_detail?notice_id=<%=notice[i].notice_id%>'">
+                <tr align="center" style="cursor:pointer" onclick="location.href='../notice/notice_detail?notice_id=<%=notice[i].notice_id%>'">
                     <td><%=notice[i].notice_id%></td>
                     <td><%=notice[i].title%></td>
                     <td>관리자</td>
