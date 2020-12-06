@@ -123,6 +123,8 @@ router.get('/search', async (req, res, next) => {
       item_ = items;
     }
 
+    item_ = models.get_remainTime(item_);
+
     res.render('search.html', {
       title: '게시판 리스트',
       rows: item_,

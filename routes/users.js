@@ -112,6 +112,7 @@ router.get('/login', function(req, res, next) {
 router.post('/login',async (req,res,next)=>{
   try{
     let body = req.body;
+    let session = req.session;
 
     let result = await model['member_info'].findOne({
       where: {
@@ -126,8 +127,9 @@ router.post('/login',async (req,res,next)=>{
 
     if(result == null)
     {
+      session.message = "wrong_id";
       console.log("잘못된 정보");
-      res.redirect("/users/login");
+      res.render("users/login.html", { session : session });
     }
     else if(result.password == body.pwd)
     {
@@ -142,8 +144,9 @@ router.post('/login',async (req,res,next)=>{
     }
     else
     {
+      session.message = "wrong_pw";
       console.log("로그인 실패");
-      res.redirect("/users/login");
+      res.render("users/login.html", { session : session });
     }
 
   }catch(err){
@@ -198,7 +201,7 @@ router.post('/register',async (req,res,next)=>{
       nickname : body.user_nickname,
       //salt : salt
     });
-    res.redirect('/');
+    res.redirect('/users/login');
   }catch(err){
     console.log(err);
     next(err);
