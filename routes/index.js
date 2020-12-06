@@ -96,50 +96,140 @@ router.get('/search', async (req, res, next) => {
 
   var page = req.query.page;
   let keyword = req.query.keyword;
+  let id = req.query.id;
+  let bid = req.query.bid;
   let session = req.session;
 
   console.log(req.query)
 
-  try {
-    items = await models['product_info'].findAll({
+  if(keyword != undefined && id == undefined && bid == undefined) {
+    console.log("id 없을때")
+    try {
+      items = await models['product_info'].findAll({
+        raw: true,
+        where:
+            {
+              //title: {[Op.like]: "%" + keyword + "%"}
+              [Op.or] : [
+                {
+                  title: {[Op.like]: "%" + keyword + "%"}
+                },
+                {
+                  product_describe: {[Op.like]: "%" + keyword + "%"}
+                }
+              ]
+            }
+      });
+
+      let item_ = null;
+      if (item_ !== undefined) {
+        item_ = items;
+      }
+
+      item_ = models.get_remainTime(item_);
+
+      res.render('search.html', {
+        title: '게시판 리스트',
+        rows: item_,
+        page: page,
+        length: item_.length - 1,
+        page_num: 8,
+        pass: true,
+        keyword: keyword,
+        session: session,
+      });
+      console.log(item_.length - 1, '/', page);
+
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  }
+  else if (keyword == undefined && id != undefined && bid == undefined) {
+    console.log("id만 있을때")
+    try {
+      items = await models['product_info'].findAll({
+        raw: true,
+        where:
+            {
+              seller_id : id
+            }
+      });
+
+      let item_ = null;
+      if (item_ !== undefined) {
+        item_ = items;
+      }
+
+      item_ = models.get_remainTime(item_);
+
+      res.render('search.html', {
+        title: '게시판 리스트',
+        rows: item_,
+        page: page,
+        length: item_.length - 1,
+        page_num: 8,
+        pass: true,
+        keyword: keyword,
+        session: session,
+      });
+      console.log(item_.length - 1, '/', page);
+
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  }
+  else if (keyword == undefined && id == undefined && bid != undefined) {
+    console.log("id만 있을때")
+
+    let buy_hist = await model['bid_history'].findAll({
+      where: {
+        member_id: session.user.id,
+      },
       raw: true,
-      where:
-          {
-            title: {[Op.like]: "%" + keyword + "%"}
-
-            // $or: [
-            //   {
-            //     product_describe: {[Op.like]: "%" + keyword + "%"}
-            //   },
-            //   {
-            //     title: {[Op.like]: "%" + keyword + "%"}
-            //   }
-            // ]
-          }
     });
-
-    let item_ = null;
-    if(item_ !== undefined) {
-      item_ = items;
+    console.log('buy_hist:\n', buy_hist);
+    if (buy_hist[0] == undefined) {
+      console.log('mybuy[0] undefined');
+      buy_hist = null;
+    }
+    //console.log('buy len:',buy_hist.length);
+    let my_buy_length;
+    let my_sell_length;
+    let my_buy = [];
+    if (buy_hist) {
+      console.log('buy_hist is not null');
+      for (let idx in buy_hist) {
+        let buy_product_info = await model['product_info'].findAll({
+          where: {
+            product_id: buy_hist[idx].product_id,
+          },
+          raw: true,
+        });
+        my_buy[idx] = buy_product_info[0];
+        my_buy[idx].bid_price = buy_hist[idx].bid_price;
+      }
+      my_buy_length = my_buy.length;
+      my_sell_length = my_sell.length;
+    } else {
+      my_buy = null;
+      my_buy_length = 0;
+      my_sell_length = 0;
     }
 
-    item_ = models.get_remainTime(item_);
+    item_ = my_buy;
 
     res.render('search.html', {
       title: '게시판 리스트',
       rows: item_,
-      page : page,
-      length : item_.length - 1,
-      page_num : 8,
-      pass : true,
-      keyword : keyword,
-      session : session,
+      page: page,
+      length: item_.length - 1,
+      page_num: 8,
+      pass: true,
+      keyword: keyword,
+      session: session,
     });
-    console.log(item_.length - 1, '/', page);
-
-  } catch (err) {
-    console.error(err);
-    next(err);
   }
 });
 

@@ -76,12 +76,12 @@
 <div class="inner">
     <br>
     <strong style = "font-size: 20px;"> 바로 후원하기 </strong> <hr>
-    <form name=f1 method="post" action="direct_done_proc.html" onSubmit="return functionK();">
+    <form name=f1 method="post" action="direct_done" onSubmit="return functionK();">
         <div class="row uniform">
             <div class="6u 12u$(xsmall)">
                 <div class="row uniform">
                     <div class="6u 12u$(xsmall)">
-                        <input type="text" name="dobe_name" id="done_name" value="" placeholder="기부자명" />
+                        <input type="text" name="dobe_name" id="done_name" value="<%=user.name%>" />
                     </div>
                     <div class="6u$ 12u$(xsmall)">
                         <input type="text" name="done_account" id="done_account" value="" placeholder="금액" />

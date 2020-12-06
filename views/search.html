@@ -55,18 +55,16 @@
             <strong style="font-size: 25px"> 상품 목록 </strong>
         </div>
         <div class="6u 12u$(small)">
-            <form method="post" action="#">
-                <div class="row uniform">
-                    <div class="3u 12u$(small)">
-                    </div>
-                    <div class="6u 12u$(small)">
-                        <input type="text" name="query" id="query" value="" placeholder=""/>
-                    </div>
-                    <div class="3u$ 12u$(small)">
-                        <input type="submit" value="검색"/>
-                    </div>
+            <div class="row uniform">
+                <div class="3u 12u$(small)">
                 </div>
-            </form>
+                <div class="6u 12u$(small)">
+                    <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색" />
+                </div>
+                <div class="3u$ 12u$(small)">
+                    <input type="Button" value="검색" name="search" onclick="search()"/>
+                </div>
+            </div>
         </div>
     </div>
     <hr>
@@ -96,7 +94,7 @@
                         </tr>
                         <tr align="center">
                             <td>가격</td>
-                            <td><%=data.start_price%></td>
+                            <td><%=data.start_price.toLocaleString()%></td>
                         </tr>
                         <tr align="center">
                             <td>남은 시간</td>
@@ -144,6 +142,29 @@
 <script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
+<script>
+    function search() {
+
+        var keyword = $('.keyword').val();
+
+        if(keyword == '' || keyword == ' ') {
+            alert("내용을 입력해 주세요.");
+            return false;
+        }
+
+        var keyword = keyword.replaceAll(" ", "+");
+        location.href = '/search?keyword=' + keyword + '&page=1';
+    }
+
+    $(document).ready(function () {
+        $("#keyword").keypress(function (e) {
+            if(e.which == 13) {
+
+                search();
+            }
+        })
+    })
+</script>
 
 
 </body>

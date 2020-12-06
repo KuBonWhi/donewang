@@ -126,6 +126,7 @@ router.get('/my_tradeInfo', async function(req, res, next) {
     },
     raw:true,
   });
+
   let my_sell = await model['product_info'].findAll({
     where: {
       seller_id : session.user.id,
