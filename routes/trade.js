@@ -263,12 +263,13 @@ router.post('/trade_finish', async (req,res,next)=>{
         let price = Math.floor(body.bid_price) + 1000;
         console.log('price : ',price);
         let order = Math.floor(body.order) + 1;
-        await model['bid_history'].create({
+        let result = await model['bid_history'].create({
           product_id : body.product_id,
           member_id : session.user.id,
           order : order,
           bid_price: price,
         });
+        console.log(result);
         res.redirect('/');
       } catch (error) {
         console.error(error);
