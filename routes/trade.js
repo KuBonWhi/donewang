@@ -100,7 +100,7 @@ router.get('/item', async (req, res, next) =>{
     const query = req.query.product_id;
     let product_info;
     let seller_info;
-    console.log('item query: ', query);
+
     try {
         product_info = await model['product_info'].findOne({
             where : {
@@ -110,9 +110,6 @@ router.get('/item', async (req, res, next) =>{
         });
         
         let sellerId = product_info['seller_id'];
-
-        console.log('product_info : ', product_info);
-        console.log('seller_id : ', sellerId);
         
         seller_info = await model['member_info'].findOne({
             where : {
@@ -124,7 +121,9 @@ router.get('/item', async (req, res, next) =>{
         console.error(error);
         next(error);
     }
-    console.log('seller_info : ', seller_info);
+
+    product_info = model.get_remainTime(product_info)
+
     res.render('trade/item.html', { 
         product_info : product_info, 
         seller_info : seller_info,
@@ -151,6 +150,8 @@ router.get('/item_list', async(req, res, next) =>{
         if(product[0] !== undefined){
             product_ = product;
         }
+
+        product_ = model.get_remainTime(product_)
 
         res.render('trade/item_list.html', {
             title: '게시판 리스트',

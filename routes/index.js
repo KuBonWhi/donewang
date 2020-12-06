@@ -3,26 +3,26 @@ var router = express.Router();
 
 const models = require('../models');
 
-function get_remainTime(data) {
-  let now = new Date();
-
-  for(let index in data) {
-    let expire_time = new Date(data[index].createdAt);
-    expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
-
-    console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
-    console.log("마감 시간 : ", expire_time.toString());
-    console.log("현재 시간 : ", now.toString());
-
-    let diff = expire_time - now;
-    var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    var sec = Math.floor((diff % (1000 * 60)) / 1000);
-
-    console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
-    console.log("\n");
-  }
-}
+// function get_remainTime(data) {
+//   let now = new Date();
+//
+//   for(let index in data) {
+//     let expire_time = new Date(data[index].createdAt);
+//     expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
+//
+//     console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
+//     console.log("마감 시간 : ", expire_time.toString());
+//     console.log("현재 시간 : ", now.toString());
+//
+//     let diff = expire_time - now;
+//     var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//     var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+//     var sec = Math.floor((diff % (1000 * 60)) / 1000);
+//
+//     console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+//     console.log("\n");
+//   }
+// }
 
 router.get('/', async (req, res, next) => {
   try {
@@ -75,13 +75,15 @@ router.get('/', async (req, res, next) => {
         //attributes:['product_picture'],
         raw: true
     });
-    let product_pic = null;
+    let product_ = null;
     if(product[0] !== undefined){
-        product_pic = product;
+        product_ = product;
     }
 
+    product_ = models.get_remainTime(product_)
+
     res.render('main.html', {
-      productPic: product_pic,
+      productPic: product_,
       session : session,
       totSum : monoSum
       //productPic : 'uploads/fig.LinkState1607002337230.png'
