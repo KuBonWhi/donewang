@@ -38,27 +38,24 @@
 <section id="main" class="wrapper">
     <div class="inner" align="center">
     <!-- 코드 작성 부분 -->
-        <strong style = "font-size: 20px; "> 로 그 인 </strong>
-            <div align="center">
+        <strong style="font-size: 25px;"> 내 정보 확인 </strong>
+        <h5>(비밀번호를 한번 더 입력해주세요) </h5>
+        <div align="center">
                 <form action="login" method="post">
                     <div class="row uniform">
                         <div class="12u$">
-                            <input type="text"  name = "id" placeholder="아이디" style = "text-align: center; height: 40px; font-size: 15px; width : 330px; margin-bottom: 15px; margin-top: 20px;">
+                            <!-- @@@@@@디비 연결하고 아이디는 value=<% %>로 넣기 -->
+                            <input disabled type="text"  name = "id" placeholder="아이디" style = "text-align: center; height: 40px; font-size: 15px; width : 330px; margin-bottom: 15px; margin-top: 20px;">
                         </div>
                         <div class="12u$" >
                             <input type="password"  name = "pwd" placeholder="비밀번호" style = "text-align: center; height: 40px; font-size: 15px; width : 330px; margin-bottom: 25px;">
                         </div>
                         <div class="12u$">
-                            <input type="submit" value="로그인" style="width: 170px;"> &emsp;
-                            <a href="../users/register"><input type="button" value="회원가입"></a>
+                            <input type="submit" value="확인">
                         </div>
                     </div>
                 </form>
             </div>
-
-            <a href="../users/find_id"> 아이디 찾기 </a> &emsp; &emsp;
-            <a href="../users/find_passwd">비밀번호 찾기</a>
-
         </form>
         </div>
 </section>

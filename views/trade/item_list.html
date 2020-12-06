@@ -108,19 +108,27 @@
         </div>
         <% } %>
         <br><br>
-        <tr>
-            <td>[<a href="/trade/item_list?page=<%= --page %>">이전</a>]</td>
-            <td colspan="6">
-                <%
+        <div align="center">
+            <%
+            if(page != 1) {
+            %>
+                [<a href="/trade/item_list?page=<%=--page%>">이전</a>]&emsp;
+
+            <% }
+
                 for(var j = 0; j < rows.length / page_num; j++){
-                %>
-                [<a href="/trade/item_list?page=<%= j + 1 %>"><%= j + 1 %></a>]
-                <%
+            %>
+                [<a href="/trade/item_list?page=<%=j+1%>"><%=j+1 %></a>] &emsp;
+            <%
                 }
-                %>
-            </td>
-            <td>[<a href="/trade/item_list?page=<%= ++page %>">다음</a>]</td>
-        </tr>
+            %>
+            <%
+            let next_page = ++page;
+            if(page != rows.length/page_num) {
+            %>
+                [<a href="/trade/item_list?page=<%=next_page%>">다음</a>]
+            <% } %>
+        </div>
         <br>
     </div>
 </div>
