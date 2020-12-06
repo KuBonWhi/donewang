@@ -22,6 +22,19 @@ router.get('/notice', async function(req, res, next) {
         }
         //console.log(notice_board_);
 
+        for(index in notice_board_) {
+            let timezoneOffset = new Date().getTimezoneOffset() * 60000;
+            let timezoneDate = new Date(notice_board_[index].createdAt - timezoneOffset);
+            let date = timezoneDate.toISOString().
+            replace(/T/, ' ').
+            replace(/\..+/, '');
+
+            console.log(date);
+
+            notice_board_[index].uptime = date;
+        }
+
+
         res.render('notice/notice.html', {
             title: '게시판 리스트',
             notice_info: notice_board_,
