@@ -42,10 +42,10 @@
                 <div class="3u 12u$(small)">
                 </div>
                 <div class="6u 12u$(small)">
-                    <input type="text" name="query" id="query" value="" placeholder=""/>
+                    <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="검색" />
                 </div>
                 <div class="3u$ 12u$(small)">
-                    <input type="submit" value="검색"/>
+                    <input type="Button" value="검색" name="search" onclick="search()"/>
                 </div>
             </div>
         </div>
@@ -94,6 +94,29 @@
 <script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
+<script>
+    function search() {
+
+        var keyword = $('.keyword').val();
+
+        if(keyword == '' || keyword == ' ') {
+            alert("내용을 입력해 주세요.");
+            return false;
+        }
+
+        var keyword = keyword.replaceAll(" ", "+");
+        location.href = '/notice/notice?keyword=' + keyword;// + '&page=1';
+    }
+
+    $(document).ready(function () {
+        $("#keyword").keypress(function (e) {
+            if(e.which == 13) {
+
+                search();
+            }
+        })
+    })
+</script>
 
 </body>
 </html>

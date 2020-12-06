@@ -25,10 +25,19 @@ router.get('/', async (req, res, next) => {
         raw: true
       });
     }
-    totalSum = account[0]['total_sum'];
+
+    let totalSum = account[0]['total_sum'];
+
+    let Sum = 0;
+
+    for(i in account) {
+      Sum += account[i].donation;
+    }
+
+    console.log(Sum);
 
     // ','콤마찍기
-    var totalMoney=totalSum; 
+    var totalMoney=Sum;
     var tempstr = "";
     var i = 0;
     for(;;)
@@ -73,7 +82,22 @@ router.get('/', async (req, res, next) => {
       //console.log('a: ',a.int_remain_time, '\nb: ',b.int_remain_time);
       return a.int_remain_time -b.int_remain_time;
     });
-    //console.log('late:\n',product_late);
+
+    for(i in product_) {
+      let bid = await models.get_bidPrice(product_[i]);
+      product_[i].bid_price = bid;
+    }
+
+    for(i in product_late) {
+      let bid = await models.get_bidPrice(product_late[i]);
+      product_late[i].bid_price = bid;
+    }
+
+    // for(i in product_) {
+    //   product_[i].bid_price = models.get_bidPrice(product_[i]);
+    //   console.log("bid = ",product_[i].bid_price);
+    // }
+
 
     res.render('main.html', {
       productPic: product_,
@@ -103,7 +127,7 @@ router.get('/search', async (req, res, next) => {
   console.log(req.query)
 
   if(keyword != undefined && id == undefined && bid == undefined) {
-    console.log("id 없을때")
+    console.log("ketword만있을때")
     try {
       items = await models['product_info'].findAll({
         raw: true,
@@ -127,6 +151,11 @@ router.get('/search', async (req, res, next) => {
       }
 
       item_ = models.get_remainTime(item_);
+
+      for(i in item_) {
+        let bid = await models.get_bidPrice(item_[i]);
+        item_[i].bid_price = bid;
+      }
 
       res.render('search.html', {
         title: '게시판 리스트',

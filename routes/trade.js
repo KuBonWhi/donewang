@@ -119,6 +119,10 @@ router.get('/item_list', async(req, res, next) =>{
         }
 
         product_ = model.get_remainTime(product_)
+        for(i in product_) {
+            let bid = await model.get_bidPrice(product_[i]);
+            product_[i].bid_price = bid;
+        }
 
         res.render('trade/item_list.html', {
             title: '게시판 리스트',
@@ -219,8 +223,15 @@ router.get('/item', async (req, res, next) =>{
     }
   
     product_info = model.get_remainTime(product_info);
-  
-    console.log('seller_info : ', seller_info);
+
+    if(session.user != undefined)
+    {
+        if(session.user.id == product_info.seller_id)
+        {
+            session.enable = false;
+        }
+    }
+
     res.render('trade/item.html', { 
         product_info : product_info, 
         seller_info : seller_info,
@@ -266,6 +277,11 @@ router.post('/direct_done', async (req, res, next) => {
         }
     });
 
+    await model['public_account'].create({
+        depositor_id: session.user.id,
+        donation: body.done_account
+    });
+
     res.redirect('/users/my_tradeInfo');
 });
 
@@ -285,7 +301,7 @@ router.post('/trade_finish', async (req,res,next)=>{
         //원호야 여기부분에서 유저아이디(현재 로그인중인 유저)랑 body.seller_id(판매자)
         //둘이 같으면 alert띄워줘@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
         console.log('자신이 올린 상품은 입찰할 수 없습니다.@@@@@@@@@@@@@2');
-        res.redirect('/');
+        res.redirect('/trade/item?product_id=' + body.product_id);
     }else{
     //입찰기록
     try {
@@ -299,7 +315,7 @@ router.post('/trade_finish', async (req,res,next)=>{
           bid_price: price,
         });
         console.log(result);
-        res.redirect('/');
+        res.redirect('/trade/item?product_id=' + body.product_id);
       } catch (error) {
         console.error(error);
         next(error);
