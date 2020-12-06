@@ -14,7 +14,7 @@ router.get('/my_info', async (req, res, next) => {
       }
     });
 
-    let address = string.split('/');
+    let address = result.address.split('/');
 
     res.render("users/my_info.html" , {
       session : session,
@@ -30,6 +30,34 @@ router.get('/my_info', async (req, res, next) => {
   }
 });
 
+
+router.post('my_info', async (req, res, next) => {
+  try{
+    let session = req.session;
+    let body = req.body;
+
+    console.log('my_info');
+
+    let result = await model['member_info'].update({
+      id : body.user_id,
+      password: body.user_pw,
+      address: body.zip_code + "/" + body.addr1 + "/" + body.addr2,
+      phone_num: body.user_phone_num,
+      nickname : body.user_nickname,
+      //salt : salt
+    },{
+      where : {
+        id : body.user_id
+      }
+    });
+
+    res.redirect('/');
+
+  }catch(err){
+    console.log(err);
+    next(err);
+  }
+
 router.get('/find_id_result', function(req, res, next) {
   let session = req.session;
 
@@ -40,6 +68,7 @@ router.get('/find_passwd_result', function(req, res, next) {
   let session = req.session;
 
   res.render("users/find_passwd_result.html" , { session : session});
+
 });
 
 router.get('/confirm_myInfo', function(req, res, next) {
