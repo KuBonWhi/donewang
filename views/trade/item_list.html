@@ -122,7 +122,12 @@
             <%
                 }
             %>
-                [<a href="/trade/item_list?page=<%=++page %>">다음</a>]
+            <%
+            let next_page = ++page;
+            if(page != rows.length/page_num) {
+            %>
+                [<a href="/trade/item_list?page=<%=next_page%>">다음</a>]
+            <% } %>
         </div>
         <br>
     </div>
