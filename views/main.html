@@ -190,7 +190,7 @@
                                 </div>
 
                                 <h4><%=data.title%></h4>
-                                시작가격| <%=data.start_price%><br>
+                                시작가격| <%=data.start_price%> 원<br>
                                 남은시간| <%=data.remain_time%>
                             </a>
                         </div>
@@ -222,15 +222,16 @@
                     <div class="row uniform">
                         <%
                         var j;
-                        for(j=0; j<4; j++) { %>
+                        for(j=0; j<4; j++) { 
+                            var data_ = product_late[i*4+j];%>
                         <div class="3u 12u$(small)" align="center">
                             <div class="image round">
-                                <img src="images/pic01.jpg" alt="Pic 01" />
+                                <img src="<%= data_.product_picture %>" alt="Pic 01" />
                             </div>
 
-                            <h4>제목</h4>
-                            시작가격| 55,000 <br>
-                            마감기한| 36:20
+                            <h4><%=data_.title%></h4>
+                            시작가격| <%=data_.start_price%> 원<br>
+                            남은시간| <%=data_.remain_time%>
                         </div>
                         <% } %>
                     </div>

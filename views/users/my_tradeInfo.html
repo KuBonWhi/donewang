@@ -31,22 +31,28 @@
 </header>
 
 <div class="inner">
+    <%var myinfo = my_info;
+    var mysell = my_sell;
+    var mysell_length = my_sell_length;
+    var mybuy = my_buy;
+    var mybuy_length = my_buy_length;%>
+    <!-- mysell_length는 내가 판매한 상품 개수야! mybuy_length는 내가 입찰 참여한 수야!  -->
     <br>
     <strong style="font-size: 25px;"> 마이페이지 </strong>
     <hr>
     <div class="row uniform">
         <div class="12u$">
-            <label for="title">총 후원 금액</label>
+            <label for="title">나의 후원 금액</label>
             <div class="6u 12u$">
                 <div class="box">
-                    <h3 align="center">&#8361;1,000,000</h3>
+                    <h3 align="center">&#8361;<%=myinfo.amount_donate%></h3>
                 </div>
             </div>
         </div>
     </div>
     <hr>
     <div class="row uniform">
-        <div class="12u$">
+        <div class="12u$" align="center">
             <label for="title">판매 등록한 제품</label>
             <table style="width: 100%;">
                 <tr align="center">
@@ -54,19 +60,36 @@
                     <td> 내용 </td>
                     <td> 시작 가격</td>
                     <td> 후원 비율</td>
-                    <td> 사진 </td>
+                    <!-- <td> 사진 </td> -->
                 </tr>
-                <%
+                <%  if(mysell_length >2){
                     for(var i=0; i<3; i++) {
                 %>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                    <tr align="center">
+                        <td><%=mysell[i].title%></td>
+                        <td><%=mysell[i].product_describe%></td>
+                        <td><%=mysell[i].start_price%></td>
+                        <td><%=mysell[i].interest_spon%></td>
+                        <!-- <td>11111111111111</td> -->
                     </tr>
-                <% } %>
+                <% }} else if(mysell_length>0){
+                    for(var p=0; p < mysell_length; p++){%>
+                    <tr align="center">
+                        <td><%=mysell[i].title%></td>
+                        <td><%=mysell[i].product_describe%></td>
+                        <td><%=mysell[i].start_price%></td>
+                        <td><%=mysell[i].interest_spon%></td>
+                        <!-- <td>11111111111111</td> -->
+                    </tr>
+                <%}} else{%>
+                    <tr align="center">
+                        <td> ---- </td>
+                        <td> ---- </td>
+                        <td> ---- </td>
+                        <td> ---- </td>
+                        <!-- <td>11111111111111</td> -->
+                    </tr>
+                <%}%>
             </table>
         </div>
         <div class="12u$" align="right">
@@ -75,27 +98,44 @@
     </div>
     <hr>
     <div class="row uniform">
-        <div class="12u$">
+        <div class="12u$" align="center">
             <label for="title">입찰 참여한 제품</label>
             <table style="width: 100%;">
                 <tr align="center">
                     <td> 제목 </td>
                     <td> 내용 </td>
-                    <td> 시작 가격</td>
+                    <td> 입찰 가격</td>
                     <td> 후원 비율</td>
-                    <td> 사진 </td>
+                    <!-- <td> 사진 </td> -->
                 </tr>
-                <%
+                <% if(mybuy_length >2){
                 for(var i=0; i<3; i++) {
                 %>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                <tr align="center">
+                    <td><%=mybuy[i].title%></td>
+                    <td><%=mybuy[i].product_describe%></td>
+                    <td><%=mybuy[i].bid_price%></td>
+                    <td><%=mybuy[i].interest_spon%></td>
+                    <!-- <td>1</td> -->
                 </tr>
-                <% } %>
+                <% }} else if(mybuy_length >0){
+                    for(var p=0; p < mybuy_length; p++){%>
+                <tr align="center">
+                    <td><%=mybuy[i].title%></td>
+                    <td><%=mybuy[i].product_describe%></td>
+                    <td><%=mybuy[i].bid_price%></td>
+                    <td><%=mybuy[i].interest_spon%></td>
+                    <!-- <td>1</td> -->
+                </tr>
+                <%}}else{%>
+                <tr align="center">
+                    <td> ---- </td>
+                    <td> ---- </td>
+                    <td> ---- </td>
+                    <td> ---- </td>
+                    <!-- <td>1</td> -->
+                </tr>
+                <%}%>
             </table>
         </div>
         <div class="12u$" align="right">

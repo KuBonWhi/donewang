@@ -3,27 +3,6 @@ var router = express.Router();
 
 const models = require('../models');
 
-// function get_remainTime(data) {
-//   let now = new Date();
-//
-//   for(let index in data) {
-//     let expire_time = new Date(data[index].createdAt);
-//     expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
-//
-//     console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
-//     console.log("마감 시간 : ", expire_time.toString());
-//     console.log("현재 시간 : ", now.toString());
-//
-//     let diff = expire_time - now;
-//     var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//     var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-//     var sec = Math.floor((diff % (1000 * 60)) / 1000);
-//
-//     console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
-//     console.log("\n");
-//   }
-// }
-
 router.get('/', async (req, res, next) => {
   try {
     let session = req.session;
@@ -69,23 +48,38 @@ router.get('/', async (req, res, next) => {
     }
     var monoSum = tempstr;
 
-    //제품사진 가져오기
+    //추천제품사진 가져오기(후원비율 높은순), 16개만 가져옴
     const product = await models['product_info'].findAll({
-        //order: 'createdAt DESC',
+        order: [['interest_spon', 'DESC']],
         //attributes:['product_picture'],
-        raw: true
+        raw: true,
+        limit: 16,
     });
-    let product_ = null;
+    let product_ = null;//후원 비율 높은애 변수
     if(product[0] !== undefined){
         product_ = product;
     }
+    product_ = models.get_remainTime(product_);
+    //console.log('product_:\n',product_);
 
-    product_ = models.get_remainTime(product_)
+    //전체 제품 중 남은시간 적은 제품 고르기
+    let product_late = await models['product_info'].findAll({
+      order: [['interest_spon', 'DESC']],
+      //attributes:['product_picture'],
+      raw: true,
+  });;
+    product_late = models.get_remainTime(product_late);
+    product_late.sort(function(a,b){
+      //console.log('a: ',a.int_remain_time, '\nb: ',b.int_remain_time);
+      return a.int_remain_time -b.int_remain_time;
+    });
+    //console.log('late:\n',product_late);
 
     res.render('main.html', {
       productPic: product_,
       session : session,
-      totSum : monoSum
+      totSum : monoSum,
+      product_late: product_late,
       //productPic : 'uploads/fig.LinkState1607002337230.png'
     });
   } catch (err) {
