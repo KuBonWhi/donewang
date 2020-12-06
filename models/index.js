@@ -77,6 +77,27 @@ db.get_remainTime = function get_remainTime(data) {
   return data;
 };
 
+db.get_bidPrice = async function get_bidPrice (data) {
+  let sqlQuery = `select * from bid_histories bh where bh.product_id = ${data.product_id} order by bh.order desc limit 1;`;
+
+  let last_bid = await sequelize.query(sqlQuery,{
+    type:'SELECT',
+    raws: true,
+  });
+
+
+
+  if(last_bid[0] == undefined){
+    console.log("bid = ", data.start_price)
+    return data.start_price;
+  }
+  else {
+    console.log("bid = ",last_bid[0].bid_price)
+    return last_bid[0].bid_price
+  }
+
+}
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
