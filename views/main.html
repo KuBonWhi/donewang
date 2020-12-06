@@ -114,6 +114,8 @@
             <a href="trade/direct_done">바로 후원 </a>
             <a href="notice/notice">게시판</a>
             <% if(session.user) { %>
+            <a href="users/my_tradeInfo">마이페이지</a>
+            <a href="users/confirm_myInfo">내 정보</a>
             <a href="users/logout">로그아웃</a>
             <% } else { %>
             <a href="users/login">로그인</a>
@@ -122,7 +124,6 @@
         </nav>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>
-
 </header>
 
 <!-- Banner -->
@@ -190,7 +191,7 @@
 
                                 <h4><%=data.title%></h4>
                                 시작가격| <%=data.start_price%><br>
-                                <%=data.remain_time%>
+                                남은시간| <%=data.remain_time%>
                             </a>
                         </div>
 

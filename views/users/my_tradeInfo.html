@@ -18,6 +18,8 @@
             <a href="../trade/direct_done">바로 후원 </a>
             <a href="../notice/notice">게시판</a>
             <% if(session.user) { %>
+            <a href="../users/my_tradeInfo">마이페이지</a>
+            <a href="../users/confirm_myInfo">내 정보</a>
             <a href="../users/logout">로그아웃</a>
             <% } else { %>
             <a href="../users/login">로그인</a>
@@ -29,7 +31,28 @@
 </header>
 
 <div class="inner">
-    page
+    <br>
+    <strong style="font-size: 25px;"> 마이페이지 </strong>
+    <br><br>
+    <div class="row uniform">
+        <div class="12u$">
+            <label for="title">총 후원 금액</label>
+        </div>
+    </div>
+    <hr>
+    <div class="row uniform">
+        <div class="12u$">
+            <label for="title">판매 등록한 제품</label>
+        </div>
+    </div>
+    <hr>
+    <div class="row uniform">
+        <div class="12u$">
+            <label for="title">입찰 참여한 제품</label>
+        </div>
+    </div>
+    <br><br>
+
 </div>
 
 <!-- Footer -->
