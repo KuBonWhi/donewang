@@ -4,16 +4,70 @@ var model = require('../models');
 const crypto = require('crypto'); // 암호화에 필요한 API
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  let session = req.session;
+router.get('/my_info', async (req, res, next) => {
+  try{
+    let session = req.session;
 
-  res.render("users/my_info.html" , { session : session});
+    let result = await model['member_info'].findOne({
+      where: {
+        id : session.user.id
+      }
+    });
+
+    let address = string.split('/');
+
+    res.render("users/my_info.html" , {
+      session : session,
+      info : result,
+      zipcode : address[0],
+      addr1 : address[1],
+      addr2 : address[2]
+    });
+
+  }catch(err){
+    console.log(err);
+    next(err);
+  }
 });
 
 router.get('/confirm_myInfo', function(req, res, next) {
   let session = req.session;
 
   res.render("users/confirm_myInfo.html" , { session : session});
+});
+
+router.post('/confirm_myInfo',async (req,res,next)=>{
+  try{
+    let body = req.body;
+    let session = req.session;
+
+    let result = await model['member_info'].findOne({
+      where: {
+        id : session.user.id
+      }
+    });
+
+    // let dbPassword = result.dataValues.password;
+    // let inputPassword = body.password;
+    // let salt = result.dataValues.salt;
+    // let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+    if(result.password == body.pwd)
+    {
+      console.log("비밀번호 일치");
+      res.redirect("/users/my_info");
+    }
+    else
+    {
+      session.message = "wrong_pw";
+      console.log("잘못된 비밀번호");
+      res.render("users/confirm_myInfo.html", { session : session });
+    }
+
+  }catch(err){
+    console.log(err);
+    next(err);
+  }
 });
 
 router.get('/my_tradeInfo', async function(req, res, next) {
