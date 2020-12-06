@@ -33,22 +33,74 @@
 <div class="inner">
     <br>
     <strong style="font-size: 25px;"> 마이페이지 </strong>
-    <br><br>
+    <hr>
     <div class="row uniform">
         <div class="12u$">
             <label for="title">총 후원 금액</label>
+            <div class="6u 12u$">
+                <div class="box">
+                    <h3 align="center">&#8361;1,000,000</h3>
+                </div>
+            </div>
         </div>
     </div>
     <hr>
     <div class="row uniform">
         <div class="12u$">
             <label for="title">판매 등록한 제품</label>
+            <table style="width: 100%;">
+                <tr align="center">
+                    <td> 제목 </td>
+                    <td> 내용 </td>
+                    <td> 시작 가격</td>
+                    <td> 후원 비율</td>
+                    <td> 사진 </td>
+                </tr>
+                <%
+                    for(var i=0; i<3; i++) {
+                %>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+        <div class="12u$" align="right">
+            <a href="">[더보기]</a>
         </div>
     </div>
     <hr>
     <div class="row uniform">
         <div class="12u$">
             <label for="title">입찰 참여한 제품</label>
+            <table style="width: 100%;">
+                <tr align="center">
+                    <td> 제목 </td>
+                    <td> 내용 </td>
+                    <td> 시작 가격</td>
+                    <td> 후원 비율</td>
+                    <td> 사진 </td>
+                </tr>
+                <%
+                for(var i=0; i<3; i++) {
+                %>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <% } %>
+            </table>
+        </div>
+        <div class="12u$" align="right">
+            <a href="">[더보기]</a>
+        </div>
         </div>
     </div>
     <br><br>
