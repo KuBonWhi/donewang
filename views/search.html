@@ -29,17 +29,19 @@
 <!-- Header -->
 <header id="header">
     <div class="inner">
-        <a href="../" class="logo"><img src="/img/logo_m.png" style="size:auto;"></a>
+        <a href="/" class="logo"><img src="/img/logo_n.png" style="size:auto;"></a>
         <nav id="nav">
-            <a href="../trade/upload_item" role="tab">판매</a>
-            <a href="../trade/item_list">구매</a>
-            <a href="../trade/direct_done">바로 후원 </a>
-            <a href="../notice/notice">게시판</a>
+            <a href="trade/upload_item" role="tab">판매</a>
+            <a href="trade/item_list">구매</a>
+            <a href="trade/direct_done">바로 후원 </a>
+            <a href="notice/notice">게시판</a>
             <% if(session.user) { %>
-            <a href="../users/logout">로그아웃</a>
+            <a href="users/logout">로그아웃</a>
+            <a href="users/my_tradeInfo">마이페이지</a>
+            <a href="users/confirm_myInfo">내 정보</a>
             <% } else { %>
-            <a href="../users/login">로그인</a>
-            <a href="../users/register">회원가입</a>
+            <a href="users/login">로그인</a>
+            <a href="users/register">회원가입</a>
             <% } %>
         </nav>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
