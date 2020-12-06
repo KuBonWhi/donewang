@@ -35,15 +35,18 @@
     <!-- @@@@@ title의 value에, content의 placeholder 에다가 디비에서 가져온 값 넣으면 됨! -->
     <div class="row uniform">
         <div class="6u 12u$(small)">
-            <input disabled type="text" class="ti" name="title" id="title" value="글 제목: " />
+            <label for="title">제목</label>
+            <input disabled name="name" id="name" type="text" placeholder="Title">
         </div>
-        <div class="6u$ 12u$(small)">
-
+        <div class="6u 12u$(small)">
+            <label for="createdAt">등록일</label>
+            <input disabled name="createAt" id="createAt" type="text" placeholder="date">
         </div>
     </div>
+    <br>
     <div class="field">
-        <br>
-        <textarea disabled name="content" id="내용" rows="15" placeholder="내용"></textarea>
+        <label for="내용">내용</label>
+        <textarea disabled name="message" id="message" rows="15" placeholder="Message"></textarea>
     </div>
     <br><br>
     <div class="row uniform">
