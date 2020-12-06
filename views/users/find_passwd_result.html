@@ -31,32 +31,27 @@
 </header>
 
 <div class="inner">
-    <br><br>
+    <br><br><br><br>
     <strong style = "font-size: 20px; "> 비밀번호 찾기 </strong> <hr>
-    <form action="find_passwd_result" method="get">
+    <form action="find_id" method="post">
         <div class="row uniform">
-            <div class="4u 12u$(xsmall)">
-                <div class="row uniform">
-                    <div class="12u$">
-                        <input type="text" name="user_id" id="user_id" value="" placeholder="아이디" />
-                    </div>
-                    <div class="12u$">
-                        <input type="text" name="user_name" id="user_name" value="" placeholder="이름" />
-                    </div>
-                    <div class="12u$">
-                        <input type="text" name="user_phone_num" id="user_phone_num" value="" placeholder="전화번호" />
-                    </div>
-                    <div class="12u$">
-                        <ul class="actions">
-                            <li><input type="submit" value="비밀번호 찾기" /></li>
-                            <li><input type="reset" value="초기화" class="alt" /></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="12u$" align="center">
+                <table>
+                    <tr align="center">
+                        <td>비밀번호</td>
+                    </tr>
+                    <tr align="center">
+                        <td>pwd</td>
+                    </tr>
+                </table>
+            </div>
+            <br><br>
+            <div class="12u$" align="center">
+                <a href="../users/login"> <input type="button" value="로그인 하기"/> </a>
             </div>
         </div>
     </form>
-    <br><br>
+    <br><br><br><br>
 </div>
 
 <!-- Footer -->
