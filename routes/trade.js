@@ -118,6 +118,8 @@ router.get('/item_list', async(req, res, next) =>{
             product_ = product;
         }
 
+        product_ = model.get_remainTime(product_)
+
         res.render('trade/item_list.html', {
             title: '게시판 리스트',
             rows: product_,
@@ -216,6 +218,9 @@ router.get('/item', async (req, res, next) =>{
         console.error(error);
         next(error);
     }
+  
+    product_info = model.get_remainTime(product_info);
+  
     console.log('seller_info : ', seller_info);
     res.render('trade/item.html', { 
         product_info : product_info, 

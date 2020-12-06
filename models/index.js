@@ -32,6 +32,51 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.get_remainTime = function get_remainTime(data) {
+  let now = new Date();
+  
+  if(data.length == undefined) {
+    let expire_time = new Date(data.createdAt);
+    expire_time.setHours(data.createdAt.getHours() + data.duration)
+
+    // console.log("올린 시간 : ", data.createdAt.toString(), "/duration : ", data.duration);
+    // console.log("마감 시간 : ", expire_time.toString());
+    // console.log("현재 시간 : ", now.toString());
+
+    let diff = expire_time - now;
+    var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+    data.remain_time = hour+'시간'+min+'분 남음!!'
+
+    //console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+    //console.log("\n");
+  } else {
+    for(let index in data) {
+      let expire_time = new Date(data[index].createdAt);
+      expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
+
+      console.log("index = ", index)
+      console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
+      console.log("마감 시간 : ", expire_time.toString());
+      console.log("현재 시간 : ", now.toString());
+
+      let diff = expire_time - now;
+      var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+      data[index].remain_time = hour+'시간'+min+'분 남음!!'
+
+      console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+      console.log("\n");
+    }
+  }
+  
+  return data;
+};
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

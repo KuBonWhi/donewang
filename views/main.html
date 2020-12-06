@@ -190,7 +190,7 @@
 
                                 <h4><%=data.title%></h4>
                                 시작가격| <%=data.start_price%><br>
-                                <div id="clock">약 <script>document.write(get_remainTime("<%=data.createdAt%>", "<%=data.duration%>"))</script> 남음!</div>
+                                <%=data.remain_time%>
                             </a>
                         </div>
 
