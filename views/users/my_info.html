@@ -44,33 +44,42 @@
             <form name=f action="my_info" method="post" onSubmit="return functionK();" >
                 <div class="row uniform">
                     <div class="12u$">
+                        <label for="id" align="left">아이디</label>
                         <input disabled type="text" class="userid_input" name="user_id" id="user_id" value="<%=info.id%>"/>
                     </div>
 
                     <div class="7u 12u$(small)">
+                        <label for="nick" align="left">닉네임</label>
                         <input type="text" class="nickname_input" name="user_nickname" id="nickname" value="<%=info.nickname%>" check_result="fail" required />
                     </div>
                     <div class="3u$ 12u$(small)">
+                        <label for="button" align="left"> <br></label>
                         <input type="button" class="nickname_overlap_button" onclick="" value="중복 확인">
                         <span id="nickname_style_sucess" class="button disabled" style="display: none">중복 확인</span>
                     </div>
                     <div class="12u$">
+                        <label for="new_pwd" align="left">새 비밀번호</label>
                         <input type="password" class="passwd_input" name="user_pw" id="user_pw" value="<%=info.password%>"check_result="fail" oninput="checkpwd()" required/>
                     </div>
                     <div class="12u$">
+                        <label for="new_pwd2" align="left">새 비밀번호 확인</label>
                         <input type="password" class="passwd_confirm_input" name="pw_confirm" id="pw_confirm" value="<%=info.password%>" check_result="fail" oninput="checkpwd()" required/>
                     </div>
                     <div class="12u$">
+                        <label for="name" align="left">이름</label>
                         <input type="text" class="name_input" name="user_name" id="user_name" value="<%=info.name%>" check_result="fail" required/>
                     </div>
                     <div class="12u$">
+                        <label for="phone" align="left">핸드폰 번호</label>
                         <input type="text" class="phone_num_input" name="user_phone_num" id="user_phone_num" value="<%=info.phone_num%>" check_result="fail" required/>
                     </div>
 
                     <div class="7u 12u$(small)">
+                        <label for="addr" align="left">주소</label>
                         <input type="text" class="zipcode_input" id="sample4_postcode" value="<%=zipcode%>" name="zip_code" check_result="fail" required/>
                     </div>
                     <div class="3u$ 12u$(small)">
+                        <label for="button" align="left"><br></label>
                         <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
                     </div>
                     <div class="12u$">
