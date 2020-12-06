@@ -30,6 +30,18 @@ router.get('/my_info', async (req, res, next) => {
   }
 });
 
+router.get('/find_id_result', function(req, res, next) {
+  let session = req.session;
+
+  res.render("users/find_id_result.html" , { session : session});
+});
+
+router.get('/find_passwd_result', function(req, res, next) {
+  let session = req.session;
+
+  res.render("users/find_passwd_result.html" , { session : session});
+});
+
 router.get('/confirm_myInfo', function(req, res, next) {
   let session = req.session;
 
