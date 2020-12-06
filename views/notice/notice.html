@@ -62,15 +62,17 @@
                     <td> 작성자 </td>
                     <td> 등록일 </td>
                 </tr>
-                <%
-                    for(var i=0; i<10; i++) {
+                <%  var notice = notice_info;
+                    for(var i=0; i<= length; i++) {
                 %>
+                <!-- <a href="../notice/notice_detail?notice_id=<%=notice[i].notice_id%>"></a> -->
                 <!-- @@@@@여기에 <a href></a> 걸어서 notice_detail.html로 가도록 해야됨. notice_id 넘겨주면 됨. -->
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
+                <!-- tr에다가 일단 쓰긴했는데 onmouseon인가 그게안돼 그래서 그냥 마우스는 안바뀌는데 누르면 넘어가 -->
+                <tr style="cursor:hand" onclick="location.href='../notice/notice_detail?notice_id=<%=notice[i].notice_id%>'">
+                    <td><%=notice[i].notice_id%></td>
+                    <td><%=notice[i].title%></td>
                     <td>관리자</td>
-                    <td>1</td>
+                    <td><%=notice[i].createdAt%></td>
                 </tr>
                 <% } %>
             </table>
