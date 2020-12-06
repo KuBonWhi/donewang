@@ -60,7 +60,16 @@
                     <div class="3u 12u$(small)">
                     </div>
                     <div class="6u 12u$(small)">
-                        <input type="text" name="query" id="query" value="" placeholder=""/>
+                        <div class="select-wrapper">
+                            <select name="auction_type" id="auction_type">
+                                <option value="">- 물품 종류 -</option>
+                                <option value="1">옷</option>
+                                <option value="2">악세사리</option>
+                                <option value="3">신발</option>
+                                <option value="4">전자제품</option>
+                                <option value="5">기타</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="3u$ 12u$(small)">
                         <input type="submit" value="검색"/>
