@@ -109,8 +109,7 @@ router.get('/item_list', async(req, res, next) =>{
 
     try {
         const product = await model['product_info'].findAll({
-            //order: 'createdAt DESC',
-            //attributes:['product_picture'],
+            order: [['createdAt', 'ASC']],
             raw: true
         });
         let product_ = null;
@@ -119,10 +118,12 @@ router.get('/item_list', async(req, res, next) =>{
         }
 
         product_ = model.get_remainTime(product_)
-        for(i in product_) {
+        for(let i in product_) {
             let bid = await model.get_bidPrice(product_[i]);
             product_[i].bid_price = bid;
         }
+
+        product_ = model.remove_expire_item(product_);
 
         res.render('trade/item_list.html', {
             title: '게시판 리스트',
@@ -133,8 +134,6 @@ router.get('/item_list', async(req, res, next) =>{
             pass : true,
             session : session,
         });
-        console.log(((page * 9) - 9), '/', (page * 9));
-        console.log((product_.length) / 9, '/', page);
     } catch (err) {
         console.error(err);
         next(err);

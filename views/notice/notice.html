@@ -61,10 +61,9 @@
                     <td style="width: 25%"> 등록일 </td>
                 </tr>
                 <%
-                    if(length != 0) { %>
-
+                    if(length != 0) {
                         var notice = notice_info;
-                        for(var i=0; i<= length; i++) {
+                        for(var i=0; i< length; i++) {
                 %>
 
                 <tr align="center" style="cursor:pointer" onclick="location.href='../notice/notice_detail?notice_id=<%=notice[i].notice_id%>'">
