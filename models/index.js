@@ -39,18 +39,20 @@ db.get_remainTime = function get_remainTime(data) {
     let expire_time = new Date(data.createdAt);
     expire_time.setHours(data.createdAt.getHours() + data.duration)
 
-    // console.log("올린 시간 : ", data.createdAt.toString(), "/duration : ", data.duration);
-    // console.log("마감 시간 : ", expire_time.toString());
-    // console.log("현재 시간 : ", now.toString());
+    console.log("올린 시간 : ", data.createdAt.toString(), "/duration : ", data.duration);
+    console.log("마감 시간 : ", expire_time.toString());
+    console.log("현재 시간 : ", now.toString());
 
     let diff = expire_time - now;
     var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     var sec = Math.floor((diff % (1000 * 60)) / 1000);
 
+
+
     data.remain_time = hour+'시간'+min+'분 남음!!'
 
-    //console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+    console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
     //console.log("\n");
   } else {
     for(let index in data) {
@@ -63,13 +65,14 @@ db.get_remainTime = function get_remainTime(data) {
       // console.log("현재 시간 : ", now.toString());
 
       let diff = expire_time - now;
-      var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var day = Math.floor((diff) / (1000 * 60 * 60 * 24));
+      var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) + (day * 24));
       var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       var sec = Math.floor((diff % (1000 * 60)) / 1000);
 
       data[index].remain_time = hour+'시간'+min+'분 남음!!'
       data[index].int_remain_time = hour*60 + min;
-      // console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
+      // console.log("남은 시간 : ", day, '일', hour, '시', min, '분', sec, '초')
       // console.log("\n");
     }
   }
@@ -88,11 +91,11 @@ db.get_bidPrice = async function get_bidPrice (data) {
 
 
   if(last_bid[0] == undefined){
-    console.log("bid = ", data.start_price)
+    // console.log("bid = ", data.start_price)
     return data.start_price;
   }
   else {
-    console.log("bid = ",last_bid[0].bid_price)
+    // console.log("bid = ",last_bid[0].bid_price)
     return last_bid[0].bid_price
   }
 
