@@ -262,11 +262,4 @@ router.get('/search', async (req, res, next) => {
   }
 });
 
-router.get('/search2', function (req, res, next) {
-
-  res.render('search2.html');
-
-});
-
-
 module.exports = router;
