@@ -181,6 +181,13 @@ router.get('/my_tradeInfo', async function(req, res, next) {
     }
   }
 
+  console.log('my_info : ', my_info);
+  console.log('my_sell : ', my_sell);
+  console.log('my_buy : ', my_buy);
+  console.log('my_sell_length : ', my_sell_length);
+  console.log('my_buy_length : ', my_buy_length);
+  console.log(session);
+
   res.render("users/my_tradeInfo.html" , { 
     my_info : my_info,
     my_sell : my_sell,

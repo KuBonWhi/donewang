@@ -66,8 +66,7 @@
                 <%  if(mysell_length >2){
                     for(var i=0; i<3; i++) {
                 %>
-                    <tr align="center">
-
+                    <tr align="center" onclick="location.href='../trade/item?product_id=<%=mysell[i].product_id%>'">
                         <td><%=mysell[i].title%></td>
                         <td><%=mysell[i].product_describe%></td>
                         <td><%=mysell[i].start_price.toLocaleString()%></td>
@@ -75,7 +74,7 @@
                     </tr>
                 <% }} else if(mysell_length>0){
                     for(var p=0; p < mysell_length; p++){%>
-                    <tr align="center">
+                    <tr align="center" onclick="location.href='../trade/item?product_id=<%=mysell[p].product_id%>'">
                         <td><%=mysell[p].title%></td>
                         <td><%=mysell[p].product_describe%></td>
                         <td><%=mysell[p].start_price.toLocaleString()%></td>
@@ -112,7 +111,7 @@
                 <% if(mybuy_length >2){
                 for(var i=0; i<3; i++) {
                 %>
-                <tr align="center">
+                <tr align="center" onclick="location.href='../trade/item?product_id=<%=mybuy[i].product_id%>'">
 
                     <td><%=mybuy[i].title%></td>
                     <td><%=mybuy[i].product_describe%></td>
@@ -121,7 +120,7 @@
                 </tr>
                 <% }} else if(mybuy_length >0){
                     for(var p=0; p < mybuy_length; p++){%>
-                <tr align="center">
+                <tr align="center" onclick="location.href='../trade/item?product_id=<%=mybuy[p].product_id%>'">
                     <td><%=mybuy[p].title%></td>
                     <td><%=mybuy[p].product_describe%></td>
                     <td><%=mybuy[p].bid_price.toLocaleString()%></td>

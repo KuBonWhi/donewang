@@ -35,7 +35,7 @@ Object.keys(db).forEach(modelName => {
 db.remove_expire_item = function remove_expire_item(data) {
   for(let i in data) {
     if(data[i].expire_time < new Date()) {
-      data.splice(i, i+1)
+      data.splice(i, 1)
       console.log(i, 'is expired');
     }
     else {

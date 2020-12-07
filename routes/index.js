@@ -99,7 +99,9 @@ router.get('/', async (req, res, next) => {
     //   console.log("bid = ",product_[i].bid_price);
     // }
 
+    console.log(product_);
     product_ = models.remove_expire_item(product_);
+    console.log(product_late)
     product_late = models.remove_expire_item(product_late);
 
     res.render('main.html', {
