@@ -62,7 +62,8 @@ router.get('/', async (req, res, next) => {
         order: [['interest_spon', 'DESC']],
         //attributes:['product_picture'],
         raw: true,
-        limit: 16,
+        where : {
+        }
     });
     let product_ = null;//후원 비율 높은애 변수
     if(product[0] !== undefined){
@@ -98,6 +99,8 @@ router.get('/', async (req, res, next) => {
     //   console.log("bid = ",product_[i].bid_price);
     // }
 
+    product_ = models.remove_expire_item(product_);
+    product_late = models.remove_expire_item(product_late);
 
     res.render('main.html', {
       productPic: product_,
@@ -156,6 +159,8 @@ router.get('/search', async (req, res, next) => {
         let bid = await models.get_bidPrice(item_[i]);
         item_[i].bid_price = bid;
       }
+
+      item_ = models.remove_expire_item(item_);
 
       res.render('search.html', {
         title: '게시판 리스트',

@@ -102,7 +102,7 @@
                 <li>
                     <% if(session.enable == false) { %>
                     <span class="button disabled">(+&#8361;1,000) 입찰 하기</span>
-                    <% } else { %>
+                    <% session.enable = true } else { %>
                     <input type="submit" value="(+&#8361;1,000) 입찰 하기" />
                     <% } %>
                 </li>

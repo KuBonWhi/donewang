@@ -40,7 +40,7 @@ router.get('/notice', async function (req, res, next) {
         let notice_board_ = null;
         if (notice_board[0] !== undefined) {
             notice_board_ = notice_board;
-            length = notice_board.length - 1;
+            length = notice_board.length;
         }
         //console.log(notice_board_);
 
