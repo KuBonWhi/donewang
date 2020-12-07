@@ -173,6 +173,7 @@
                 var i;
                 for(i=0; i<4; i++) { %>
                 <li>
+
                     <div class="row uniform">
                         <%
                         var j;
@@ -196,6 +197,7 @@
 
                         <% } %>
                     </div>
+
                 </li>
                 <% } %>
             </ul>
@@ -231,7 +233,7 @@
                                 </div>
 
                                 <h4><%=data_.title%></h4>
-                                시작가격| <%=data_.bid_price.toLocaleString()%> 원<br>
+                                현재가격| <%=data_.bid_price.toLocaleString()%> 원<br>
                                 <%=data_.remain_time%>
                             </a>
                         </div>
