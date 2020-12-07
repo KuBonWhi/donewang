@@ -129,11 +129,12 @@ router.get('/item_list', async(req, res, next) =>{
             rows: product_,
             page : page,
             length : product_.length - 1,
-            page_num : 8,
+            page_num : 9,
             pass : true,
             session : session,
         });
-        console.log(product_.length - 1, '/', page);
+        console.log(((page * 9) - 9), '/', (page * 9));
+        console.log((product_.length) / 9, '/', page);
     } catch (err) {
         console.error(err);
         next(err);

@@ -48,7 +48,7 @@
     </div>
 </header>
 
-<div class="inner">
+<div class="inner" style="min-width: 700px">
     <br>
     <div class="row uniform">
         <div class="6u 12u$(small)">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="6u 12u$(small)">
-                    <input type="text" class = "keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색" />
+                    <input type="text" class="keyword" name="keyword" id="keyword" value="" placeholder="판매 상품 검색"/>
                 </div>
                 <div class="3u 12u$(small)">
                     <input type="Button" value="검색" name="search" onclick="search()"/>
@@ -81,72 +81,68 @@
     </div>
     <hr>
     <div class="box alt">
-        <%
-        var i;
-        var j;
-        for(i=((page * page_num) - page_num) / 4; i < (page * page_num) / 4; i++) {
-        %>
-        <div class="row 50% uniform">
-            <%
-            for(j=0; j < 4; j++) {
-            k = i*4+j
-            if(k <= length) {
-            var data = rows[k]
+        <div class="row uniform">
+           <% for(var i = ((page * page_num) - page_num); i < (page * page_num); i++)
+            {
+            if(i > length) {
+                i++;
+            } else {
+                var data = rows[i];
             %>
-            <div class="box" align="center">
-                <a href="../trade/item?product_id=<%=data.product_id%>">
-                    <table style="width: fit-content;">
-                        <tr align="center">
-                            <td colspan="2">
-                                <img src="<%=data.product_picture %>" style="width: 200px; height: auto"></td>
-                        </tr>
-                        <tr align="center">
-                            <td>제목</td>
-                            <td><%=data.title%></td>
-                        </tr>
-                        <tr align="center">
-                            <td>가격</td>
-                            <td><%=data.bid_price.toLocaleString()%></td>
-                        </tr>
-                        <tr align="center">
-                            <td>남은 시간</td>
-                            <td><%=data.remain_time%></td>
-                        </tr>
-                    </table>
-                </a>
+            <div class="4u">
+                <span class="image fit">
+                    <a href="../trade/item?product_id=<%=data.product_id%>">
+                        <table style="width: 100%">
+                            <tr align="center">
+                                <td colspan="2">
+                                    <img src="<%=data.product_picture %>" style="width: 200px; height: auto"></td>
+                            </tr>
+                            <tr align="center">
+                                <td>제목</td>
+                                <td><%=data.title%></td>
+                            </tr>
+                            <tr align="center">
+                                <td>가격</td>
+                                <td><%=data.bid_price.toLocaleString()%></td>
+                            </tr>
+                            <tr align="center">
+                                <td>남은 시간</td>
+                                <td><%=data.remain_time%></td>
+                            </tr>
+                        </table>
+                    </a>
+                </span>
             </div>
-            <% } %>
-            <% } %>
+            <% } } %>
         </div>
-        <% } %>
-        <br><br>
-        <div align="center">
-            <%
-            if(page != 1) {
-            %>
-                [<a href="/trade/item_list?page=<%=--page%>">이전</a>]&emsp;
-
-            <% }
-
-                for(var j = 0; j < rows.length / page_num; j++){
-            %>
-                [<a href="/trade/item_list?page=<%=j+1%>"><%=j+1 %></a>] &emsp;
-            <%
-                }
-            %>
-            <%
-            let next_page = ++page;
-            if(page != rows.length/page_num) {
-            %>
-                [<a href="/trade/item_list?page=<%=next_page%>">다음</a>]
-            <% } %>
-        </div>
-        <br>
     </div>
+    <br><br>
+    <div align="center">
+        <%
+        if(page != 1) {
+        %>
+        [<a href="/trade/item_list?page=<%=--page%>">이전</a>]&emsp;
+
+        <% }
+
+        for(var j = 0; j < rows.length / page_num; j++){
+        %>
+        [<a href="/trade/item_list?page=<%=j+1%>"><%=j+1 %></a>] &emsp;
+        <%
+        }
+        %>
+        <%
+        let next_page = ++page;
+        if(page != (rows.length / page_num)) {
+        %>
+        [<a href="/trade/item_list?page=<%=next_page%>">다음</a>]
+        <% } %>
+    </div>
+    <br>
 </div>
 
 <!-- Footer -->
-<footer id=footer>
+<footer id=footer style="min-width: 700px">
     DonationKing Copyrightⓒ2020 All rights reserved. Human Resources Development
 </footer>
 
@@ -160,7 +156,7 @@
 
         var keyword = $('.keyword').val();
 
-        if(keyword == '' || keyword == ' ') {
+        if (keyword == '' || keyword == ' ') {
             alert("내용을 입력해 주세요.");
             return false;
         }
@@ -171,7 +167,7 @@
 
     $(document).ready(function () {
         $("#keyword").keypress(function (e) {
-            if(e.which == 13) {
+            if (e.which == 13) {
 
                 search();
             }
