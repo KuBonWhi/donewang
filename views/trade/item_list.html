@@ -98,16 +98,16 @@
                                     <img src="<%=data.product_picture %>" style="width: 200px; height: auto"></td>
                             </tr>
                             <tr align="center">
-                                <td>제목</td>
-                                <td><%=data.title%></td>
+                                <td style="white-space: nowrap">제목</td>
+                                <td><h7><%=data.title%></h7></td>
                             </tr>
                             <tr align="center">
-                                <td>가격</td>
+                                <td style="white-space: nowrap">가격</td>
                                 <td><%=data.bid_price.toLocaleString()%></td>
                             </tr>
                             <tr align="center">
-                                <td>남은 시간</td>
-                                <td><%=data.remain_time%></td>
+<!--                                <td>남은 시간</td>-->
+                                <td colspan="2"><%=data.remain_time%></td>
                             </tr>
                         </table>
                     </a>

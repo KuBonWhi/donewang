@@ -69,45 +69,41 @@
     </div>
     <hr>
     <div class="box alt">
-        <%
-        var i;
-        var j;
-        for(i=((page * page_num) - page_num) / 4; i < (page * page_num) / 4; i++) {
-        %>
-        <div class="row 50% uniform">
-            <%
-            for(j=0; j < 4; j++) {
-            k = i*4+j
-            if(k <= length) {
-            var data = rows[k]
+        <div class="row uniform">
+            <% for(var i = ((page * page_num) - page_num); i < (page * page_num); i++)
+            {
+            if(i > length) {
+            i++;
+            } else {
+            var data = rows[i];
             %>
-            <div class="box" align="center">
-                <a href="../trade/item?product_id=<%=data.product_id%>">
-                    <table style="width: fit-content;">
-                        <tr align="center">
-                            <td colspan="2">
-                                <img src="<%=data.product_picture %>" style="width: 200px; height: 200px"></td>
-                        </tr>
-                        <tr align="center">
-                            <td>제목</td>
-                            <td><%=data.title%></td>
-                        </tr>
-                        <tr align="center">
-                            <td>가격</td>
-                            <td><%=data.bid_price.toLocaleString()%></td>
-                        </tr>
-                        <tr align="center">
-                            <td>남은 시간</td>
-                            <td><%=data.remain_time%></td>
-                        </tr>
-                    </table>
-                </a>
+            <div class="4u">
+                <span class="image fit">
+                    <a href="../trade/item?product_id=<%=data.product_id%>">
+                        <table style="width: 100%">
+                            <tr align="center">
+                                <td colspan="2">
+                                    <img src="<%=data.product_picture %>" style="width: 200px; height: auto"></td>
+                            </tr>
+                            <tr align="center">
+                                <td style="white-space: nowrap">제목</td>
+                                <td><h7><%=data.title%></h7></td>
+                            </tr>
+                            <tr align="center">
+                                <td style="white-space: nowrap">가격</td>
+                                <td><%=data.bid_price.toLocaleString()%></td>
+                            </tr>
+                            <tr align="center">
+                                <td colspan="2"><%=data.remain_time%></td>
+                            </tr>
+                        </table>
+                    </a>
+                </span>
             </div>
-            <% } %>
-            <% } %>
+            <% } } %>
         </div>
-        <% } %>
-        <br><br>
+    </div>
+    <br><br>
         <div align="center">
             <%
             if(page != 1) {
