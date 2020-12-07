@@ -13,97 +13,11 @@
     <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 
-    <style>
-        *{margin:0;padding:0;}
-        ul,li{list-style:none;}
-        .slide{height:300px;overflow:hidden;position:relative;}
-        .slide ul{width:calc(100% * 4);display:flex;transition:1s;}
-        .slide li{width:calc(100% / 4);height:300px;}
-        .slide li:nth-child(1){background:white;}
-        .slide li:nth-child(2){background:white;}
-        .slide li:nth-child(3){background:white;}
-        .slide li:nth-child(4){background:white;}
-
-        .slide input{display:none;}
-        .slide .bullet{position:absolute;bottom:1px;left:0;right:0;text-align:center;z-index:10;}
-        .slide .bullet label{width:10px;height:10px;border-radius:10px;border:2px solid #666;display:inline-block;background:#fff;font-size:0;transition:0.5s;cursor:pointer;}
-        /* 슬라이드 조작 */
-        #pos1:checked ~ ul{margin-left:0;}
-        #pos2:checked ~ ul{margin-left:-100%;}
-        #pos3:checked ~ ul{margin-left:-200%;}
-        #pos4:checked ~ ul{margin-left:-300%;}
-        /* bullet 조작 */
-        #pos1:checked ~ .bullet label:nth-child(1),
-        #pos2:checked ~ .bullet label:nth-child(2),
-        #pos3:checked ~ .bullet label:nth-child(3),
-        #pos4:checked ~ .bullet label:nth-child(4){background:#666;}
-
-        slide input2{display:none;}
-        .slide .bullet2{position:absolute;bottom:1px;left:0;right:0;text-align:center;z-index:10;}
-        .slide .bullet label2{width:10px;height:10px;border-radius:10px;border:2px solid #666;display:inline-block;background:#fff;font-size:0;transition:0.5s;cursor:pointer;}
-        /* 슬라이드 조작 */
-        #pos5:checked ~ ul{margin-left:0;}
-        #pos6:checked ~ ul{margin-left:-100%;}
-        #pos7:checked ~ ul{margin-left:-200%;}
-        #pos8:checked ~ ul{margin-left:-300%;}
-        /* bullet 조작 */
-        #pos5:checked ~ .bullet label:nth-child(1),
-        #pos6:checked ~ .bullet label:nth-child(2),
-        #pos7:checked ~ .bullet label:nth-child(3),
-        #pos8:checked ~ .bullet label:nth-child(4){background:#666;}
-
-    </style>
     <style type="text/css">
         a:link { color:  #555555; text-decoration: none;}
         a:visited { color: #555555; text-decoration: none;}
         a:hover { color: #555555; text-decoration: none;}
     </style>
-    <script language="javascript">
-        window.onload = function ()
-        {
-
-        }
-    </script>
-    <script>
-        function repeat(time, duration) {
-            get_remainTime(time, duration)
-        }
-
-        function get_remainTime(time, duration) {
-
-            let now = new Date();
-            let createdAt = new Date(time)
-            let expire_time = new Date(createdAt);
-            expire_time.setHours(createdAt.getHours() + duration);
-
-            let diff = expire_time - now;
-            let hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            let sec = Math.floor((diff % (1000 * 60)) / 1000);
-
-            return hour + "시" + min + "분"
-        }
-
-        function get_remainTime2(data) {
-            let now = new Date();
-
-            for(let index in data) {
-                let expire_time = new Date(data[index].createdAt);
-                expire_time.setHours(data[index].createdAt.getHours() + data[index].duration)
-
-                console.log("올린 시간 : ", data[index].createdAt.toString(), "/duration : ", data[index].duration);
-                console.log("마감 시간 : ", expire_time.toString());
-                console.log("현재 시간 : ", now.toString());
-
-                let diff = expire_time - now;
-                var hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                var sec = Math.floor((diff % (1000 * 60)) / 1000);
-                console.log("남은 시간 : ", hour, '시', min, '분', sec, '초')
-                console.log("\n");
-            }
-        }
-    </script>
 </head>
 <body>
 <!-- Header -->
