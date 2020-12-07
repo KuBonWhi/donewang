@@ -36,7 +36,7 @@ router.get('/notice', async function (req, res, next) {
                     }
             });
         }
-        console.log(notice_board);
+        console.log("nb =", notice_board);
         let notice_board_ = null;
         if (notice_board[0] !== undefined) {
             notice_board_ = notice_board;
@@ -53,7 +53,7 @@ router.get('/notice', async function (req, res, next) {
 
             notice_board_[index].uptime = date;
         }
-
+        console.log('length = ', length);
 
         res.render('notice/notice.html', {
             title: '게시판 리스트',
@@ -101,6 +101,18 @@ router.get('/notice_detail', async function (req, res, next) {
             },
             raw: true,
         });
+
+        console.log('notice_info : ', notice_info);
+
+        let timezoneOffset = new Date().getTimezoneOffset() * 60000;
+        let timezoneDate = new Date(notice_info.createdAt - timezoneOffset);
+        let date = timezoneDate.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+
+        console.log(date);
+
+        notice_info.uptime = date;
+
+
     } catch (error) {
         console.error(error);
         next(error);
