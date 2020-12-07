@@ -133,9 +133,7 @@ router.get('/my_tradeInfo', async function(req, res, next) {
     },
     raw:true,
   });
-  console.log('mysell :\n',my_sell);
   if(my_sell[0] == undefined){
-    console.log('mysell[0] undefined');
     my_sell = null;
   }
 
@@ -147,7 +145,6 @@ router.get('/my_tradeInfo', async function(req, res, next) {
   });
   console.log('buy_hist:\n',buy_hist);
   if(buy_hist[0] == undefined){
-    console.log('mybuy[0] undefined');
     buy_hist = null;
   }
   //console.log('buy len:',buy_hist.length);
@@ -155,7 +152,6 @@ router.get('/my_tradeInfo', async function(req, res, next) {
   let my_sell_length;
   let my_buy = [];
   if(buy_hist){
-    console.log('buy_hist is not null');
     for(let idx in buy_hist){
       let buy_product_info = await model['product_info'].findAll({
         where: {
@@ -166,13 +162,23 @@ router.get('/my_tradeInfo', async function(req, res, next) {
       my_buy[idx] = buy_product_info[0];
       my_buy[idx].bid_price = buy_hist[idx].bid_price;
     }
+    if(my_sell == undefined) {
+      my_sell_length = 0;
+    }
+    else {
+      my_sell_length = my_sell.length;
+    }
     my_buy_length = my_buy.length;
-    my_sell_length = my_sell.length;
   }
   else{
     my_buy = null;
     my_buy_length = 0;
-    my_sell_length = 0;
+    if(my_sell == undefined) {
+      my_sell_length = 0;
+    }
+    else {
+      my_sell_length = my_sell.length;
+    }
   }
 
   res.render("users/my_tradeInfo.html" , { 
